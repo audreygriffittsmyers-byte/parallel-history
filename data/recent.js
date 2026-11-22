@@ -61,7 +61,7 @@ window.EXTRA5=[
 [2026,"me","x","Iran war","US and Israeli strikes beginning 28 February kill Supreme Leader Ali Khamenei and dozens of officials; Iran fires missiles and drones across the region and shipping through the Strait of Hormuz is choked off. His son Mojtaba is named successor on 8 March; a ceasefire takes hold on 8 April.","28 Feb 2026","2026 Iran war"],
 [2026,"am","t","Artemis II","Reid Wiseman, Victor Glover, Christina Koch and Jeremy Hansen fly around the Moon: the first humans beyond Earth orbit since 1972.","1 Apr 2026","Artemis II"],
 [2026,"eu","h","Orbán defeated","Péter Magyar's Tisza party wins a two-thirds majority, ending 16 years of Viktor Orbán's rule in Hungary.","12 Apr 2026","2026 Hungarian parliamentary election"],
-[2026,"me","h","UAE leaves OPEC","","1 May 2026","OPEC"],
+[2026,"me","h","UAE leaves OPEC","The Emirates quit OPEC and OPEC+ after nearly 60 years, seeking freedom to pump more oil.","1 May 2026","OPEC"],
 [2026,"am","n","Venezuela earthquakes","Magnitude 7.2 and 7.5 quakes topple buildings along the coast near Caracas.","24 Jun 2026","2026 Venezuela earthquakes"],
 [2026,"am","h","US turns 250","The semiquincentennial of the Declaration of Independence; the 48-team World Cup across the US, Canada and Mexico ends with Spain as champion.","4 Jul 2026","United States Semiquincentennial"],
 [2026,"am","n","Colombia earthquake","A magnitude 7.4 quake strikes western Colombia, days after President Abelardo de la Espriella takes office.","10 Aug 2026","2026 Colombia earthquake"],
