@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parallel History of Humankind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: time runs left to right; each region is a row that never scrolls out of view.
+   A fixed vertical "lens" picks a moment; a compact list of what is under it sits beside it. */
+:root{
+  --bg:#eceeec; --surface:#fafbfa; --ink:#1a1e22; --muted:#59616a; --line:#d3d8d4; --accent:#0d5c63; --on-c:#ffffff; --lens:rgba(13,92,99,.10);
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r-nt:#4f6b2a; --r-me:#9a5b06; --r-af:#b42318; --r-eu:#2348c9; --r-ru:#8b3a62; --r-sa:#d2540c; --r-ea:#7337d6; --r-am:#17803d; --r-oc:#0b6f86;
+  --t0:#e11d48; --t1:#0891b2; --t2:#ca8a04; --t3:#7c3aed; --t4:#059669; --t5:#ea580c; --t6:#db2777; --t7:#2563eb;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111518; --surface:#192024; --ink:#e6eae8; --muted:#9ca5ac; --line:#2a3338; --accent:#62c6cd; --on-c:#101416; --lens:rgba(98,198,205,.13);
+    --r-nt:#a3c46b; --r-me:#e3ab4c; --r-af:#f27b72; --r-eu:#86a2ff; --r-ru:#e690c0; --r-sa:#ff9c57; --r-ea:#b896ff; --r-am:#62d18d; --r-oc:#4cc8dd;
+    --t0:#fb7185; --t1:#22d3ee; --t2:#facc15; --t3:#a78bfa; --t4:#34d399; --t5:#fb923c; --t6:#f472b6; --t7:#60a5fa;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111518; --surface:#192024; --ink:#e6eae8; --muted:#9ca5ac; --line:#2a3338; --accent:#62c6cd; --on-c:#101416; --lens:rgba(98,198,205,.13);
+  --r-nt:#a3c46b; --r-me:#e3ab4c; --r-af:#f27b72; --r-eu:#86a2ff; --r-ru:#e690c0; --r-sa:#ff9c57; --r-ea:#b896ff; --r-am:#62d18d; --r-oc:#4cc8dd;
+  --t0:#fb7185; --t1:#22d3ee; --t2:#facc15; --t3:#a78bfa; --t4:#34d399; --t5:#fb923c; --t6:#f472b6; --t7:#60a5fa;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);display:flex;flex-direction:column;overflow:hidden;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.top{display:flex;align-items:center;gap:10px;padding:7px 14px;border-bottom:1px solid var(--line)}
+.top h1{flex:1;margin:0;font-family:var(--display);font-weight:650;font-size:18px;line-height:1.1}
+.top h1 small{display:block;font-family:var(--body);font-weight:400;font-size:11.5px;color:var(--muted);margin-top:1px}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+
+main{flex:1;display:flex;flex-direction:column;min-height:0}
+.tlWrap{position:relative;flex:none;border-bottom:1px solid var(--line)}
+#tl{position:absolute;inset:0;overflow-x:auto;overflow-y:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+#canvas{position:relative}
+.ax{position:absolute;top:0;left:0;right:0;border-bottom:1px solid var(--line);background:var(--bg)}
+.lab{position:absolute;top:0;font-size:10px;line-height:1;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;padding:5px 0 0 3px;border-left:1px solid var(--line);height:100%}
+.lab.major{color:var(--ink);font-weight:700}
+.gl{position:absolute;top:0;bottom:0;width:1px;background:var(--line);opacity:.5}
+.gl.major{opacity:1}
+.row{position:absolute;left:0;right:0;border-bottom:1px solid color-mix(in srgb, var(--line) 60%, transparent)}
+.row:nth-child(even){background:color-mix(in srgb, var(--ink) 2.5%, transparent)}
+.pre{position:absolute;left:0;background:repeating-linear-gradient(45deg, transparent 0 6px, color-mix(in srgb, var(--c) 9%, transparent) 6px 7px)}
+.deep{position:absolute;left:0;background:repeating-linear-gradient(90deg, transparent 0 9px, color-mix(in srgb, var(--r-nt) 7%, transparent) 9px 10px)}
+#threads{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+#threads path{fill:none;stroke-linecap:round}
+.mk{position:absolute;border:0;border-radius:3px;background:color-mix(in srgb, var(--c) 25%, var(--surface));color:var(--c);padding:0;font-size:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .15s}
+.mk.h,.mk.n{background:var(--c);color:var(--on-c)}
+.mk.m{background:var(--surface);border:1.2px dashed var(--c)}
+.mk.w{background:var(--c);color:var(--on-c);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--c)}
+.mk.lbl{justify-content:flex-start;align-items:center;text-align:left;padding:0 6px;border-left:3px solid var(--c);border-radius:3px;background:color-mix(in srgb, var(--c) 14%, var(--surface));color:var(--ink);font-size:11.5px;line-height:1.15;font-weight:600}
+.mk.lbl span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mk.lbl.tall{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px}
+.mk.lbl small{font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mk.lbl.w small{color:var(--on-c)}
+.mk.lbl.m{background:var(--surface);border:1.2px dashed var(--c);border-left:3px dashed var(--c);font-style:italic}
+.mk.lbl.w{background:var(--c);color:var(--on-c);box-shadow:none}
+.mk.tiny{font-size:0;border-radius:2px}
+.dim{opacity:.16}
+.rl{position:absolute;left:0;z-index:4;display:flex;align-items:center;gap:5px;padding:0 6px 0 5px;border:0;border-right:1px solid var(--line);background:var(--bg);font-size:10.5px;font-weight:700;line-height:1.05;color:var(--c);text-align:left}
+.rl::before{content:"";width:4px;align-self:stretch;margin:4px 0;border-radius:2px;background:var(--c);flex:none}
+.lens{position:absolute;top:0;bottom:0;pointer-events:none;z-index:3;background:var(--lens);border-left:1.5px solid var(--accent);border-right:1.5px solid var(--accent)}
+.lens b{position:absolute;top:2px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+.panel{flex:1;display:flex;flex-direction:column;min-height:0;background:var(--surface)}
+.ph{display:flex;align-items:center;gap:8px;padding:7px 12px 6px;border-bottom:1px solid var(--line)}
+.ph .yr{font-family:var(--display);font-weight:650;font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ph .sub{flex:1;font-size:11.5px;color:var(--muted);line-height:1.2;min-width:0}
+.zoom{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
+.zoom button{width:36px;height:32px;border:0;background:var(--bg);font-size:19px;font-weight:600;line-height:1;color:var(--ink)}
+.zoom button+button{border-left:1px solid var(--line)}
+.zoom button:disabled{color:var(--line);cursor:default}
+.pbody{flex:1;overflow-y:auto;padding:4px 12px 12px;overscroll-behavior:contain}
+.tip{font-size:12.5px;line-height:1.35;background:color-mix(in srgb, var(--accent) 10%, var(--bg));border-radius:8px;padding:7px 9px;margin:6px 0;display:flex;gap:8px;align-items:flex-start}
+.tip button{border:0;background:none;color:var(--accent);font-weight:700;padding:0 2px}
+.grp{font-size:10.5px;font-weight:700;color:var(--c);margin:8px 0 3px;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.grp::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--c)}
+.list{display:flex;flex-direction:column;gap:3px}
+.li{display:flex;gap:8px;align-items:baseline;border:0;border-left:3px solid var(--c);background:color-mix(in srgb, var(--c) 8%, var(--bg));border-radius:3px;padding:5px 8px;text-align:left;width:100%}
+.li.m{border-left-style:dashed}
+.li.cur{outline:2px solid var(--c)}
+.li .ly{flex:none;width:72px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.2}
+.li .lt{font-size:13.5px;font-weight:600;line-height:1.25}
+.li.m .lt{font-style:italic}
+.li .lr{display:block;font-size:11px;font-weight:400;color:var(--c);font-style:normal}
+.tbar{display:flex;gap:6px;margin:6px 0}
+.tbar button{flex:1;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px;font-weight:700;font-size:13px}
+
+nav.bn{display:flex;border-top:1px solid var(--line);background:var(--bg);padding-bottom:env(safe-area-inset-bottom)}
+nav.bn button{flex:1;border:0;background:none;padding:6px 2px 7px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--muted)}
+nav.bn button i{font-style:normal;font-size:16px;line-height:1;color:var(--ink)}
+nav.bn button[aria-pressed="true"],nav.bn button[aria-pressed="true"] i{color:var(--accent)}
+
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:86%;overflow:auto;background:var(--surface);border-radius:16px 16px 0 0;padding:8px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .25s ease;z-index:21;box-shadow:0 -8px 30px rgba(0,0,0,.2);max-width:640px;margin:0 auto}
+.open .backdrop{opacity:1;pointer-events:auto}
+.open .sheet{transform:none}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 10px}
+.sheethead{display:flex;align-items:flex-start;gap:10px}
+.sheethead h2{flex:1;margin:0;font-family:var(--display);font-weight:650;font-size:22px;line-height:1.2;text-wrap:balance}
+.close{border:0;background:var(--bg);border-radius:50%;width:32px;height:32px;font-size:18px;line-height:1;flex:none}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
+.tag{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px;background:color-mix(in srgb, var(--c) 15%, transparent);color:var(--c)}
+.tag.k{background:var(--bg);color:var(--muted)}
+.date{font-variant-numeric:tabular-nums;font-weight:700;margin:8px 0 4px;color:var(--c)}
+.sheet p{line-height:1.5;margin:6px 0;max-width:65ch}
+.note{font-size:13px;color:var(--muted);border-left:3px dashed var(--c);padding-left:10px}
+.sheet h3{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+.links{display:flex;flex-direction:column;gap:6px}
+.links a{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:none;background:var(--bg)}
+.cal{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cal div{display:flex;justify-content:space-between;gap:10px;padding:7px 10px;background:var(--bg);font-size:13px}
+.cal span{color:var(--muted)}
+.cal b{font-variant-numeric:tabular-nums;text-align:right}
+.tchips{display:flex;flex-wrap:wrap;gap:6px}
+.tchip{border:1.5px solid var(--tc);color:var(--ink);background:color-mix(in srgb, var(--tc) 10%, var(--bg));border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600}
+.toggles{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tg{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 10px;font-size:14px;font-weight:600;text-align:left}
+.tg .bx{width:18px;height:18px;border-radius:5px;border:2px solid var(--c);flex:none;display:grid;place-items:center;font-size:12px;color:var(--on-c)}
+.tg[aria-pressed="true"] .bx{background:var(--c)}
+.tg[aria-pressed="false"]{opacity:.6}
+.row2{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.row2 button{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 11px;font-size:13px;font-weight:600}
+.thl{display:flex;flex-direction:column;gap:6px}
+.thl button{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 10px;text-align:left}
+.thl .sw{width:6px;align-self:stretch;border-radius:3px;background:var(--tc);flex:none}
+.thl b{display:block;font-size:14.5px}
+.thl span{font-size:12.5px;color:var(--muted);line-height:1.35}
+.jumps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.jumps button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px;text-align:left}
+.jumps b{display:block;font-size:14px}
+.jumps span{font-size:12px;color:var(--muted)}
+.legend{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.legend div{display:flex;gap:10px;align-items:center;font-size:14px}
+.legend .mk{position:static;width:22px;height:18px;flex:none;--c:var(--r-eu)}
+.q{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);margin:12px 0 4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.fchart{display:flex;flex-direction:column;gap:2px;margin-top:8px}
+.frow{display:grid;grid-template-columns:104px 1fr;gap:8px;align-items:center;min-height:34px}
+.fname{font-size:12.5px;font-weight:700;line-height:1.15}
+.fname small{display:block;font-weight:400;color:var(--muted);font-size:10.5px}
+.ftrack{position:relative;height:14px;background:color-mix(in srgb, var(--line) 35%, transparent);border-radius:2px}
+.fbar{position:absolute;top:2px;height:10px;border-radius:2px;background:var(--c)}
+.fbar.live::after{content:"";position:absolute;right:-6px;top:-2px;border-left:6px solid var(--c);border-top:7px solid transparent;border-bottom:7px solid transparent}
+.fbar.old{background:linear-gradient(90deg, transparent, var(--c) 30%)}
+.fticks{display:grid;grid-template-columns:104px 1fr;gap:8px;font-size:10px;color:var(--muted)}
+.fticks div{position:relative;height:14px}
+.fticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+
+/* Side-by-side everywhere: timeline left, facts right */
+main{flex-direction:row}
+.tlWrap{flex:1;height:auto;border-bottom:0;border-right:1px solid var(--line);min-width:0}
+.panel{flex:none;width:clamp(150px,40%,400px)}
+@media (max-width:700px){
+  .top h1{font-size:16px}.top h1 small{display:none}
+  .ph{flex-wrap:wrap;gap:4px 8px;padding:6px 8px}
+  .ph .yr{font-size:16px}
+  .ph .sub{flex-basis:100%;order:3;font-size:10.5px}
+  .zoom button{width:30px;height:28px;font-size:17px}
+  .pbody{padding:2px 6px 10px}
+  .tip{font-size:11.5px;padding:6px 7px}
+  .li{flex-direction:column;gap:1px;padding:4px 6px}
+  .li .ly{width:auto;font-size:10px}
+  .li .lt{font-size:12.5px}
+  .grp{font-size:9.5px;margin:6px 0 2px}
+}
+@media (orientation:landscape) and (max-height:600px){
+  .top{padding:3px 12px}.top h1{font-size:15px}.top h1 small{display:none}
+  nav.bn button{flex-direction:row;gap:6px;padding:4px 2px}
+  .ph .yr{font-size:17px}
+}
+@media (prefers-reduced-motion: reduce){ .sheet,.backdrop,.mk{transition:none} }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Parallel History<small>Earth and every civilization, on one timeline</small></h1>
+  <button class="pill" id="searchBtn" type="button">Search</button>
+</header>
+<main>
+  <div class="tlWrap" id="tlWrap">
+    <div id="tl"><div id="canvas"></div></div>
+    <div id="rowLabels"></div>
+    <div class="lens" id="lens" aria-hidden="true"><b id="lensYear"></b></div>
+  </div>
+  <section class="panel" aria-label="What was happening at this time">
+    <div class="ph">
+      <span class="yr" id="pYear">3300 BCE</span><span class="sub" id="pSub"></span>
+      <div class="zoom" role="group" aria-label="Zoom"><button type="button" id="zOut" aria-label="Zoom out: see more time">−</button><button type="button" id="zIn" aria-label="Zoom in: see names">+</button></div>
+    </div>
+    <div class="pbody" id="pBody"></div>
+  </section>
+</main>
+<nav class="bn" aria-label="Tools">
+  <button type="button" id="nFilters"><i>☰</i>Filters</button>
+  <button type="button" id="nThreads"><i>⇄</i>Threads</button>
+  <button type="button" id="nEras"><i>⌖</i>Eras</button>
+  <button type="button" id="nFaiths"><i>◎</i>Faiths</button>
+  <button type="button" id="nGuide"><i>?</i>Guide</button>
+</nav>
+<div id="modal">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"></div>
+</div>
+
+<script src="data/base.js"></script>
+<script src="data/extra.js"></script>
+<script src="data/extra2.js"></script>
+<script src="data/threads.js"></script>
+<script src="data/nature.js"></script>
+<script>
+const REG=[
+ {id:"nt",name:"Earth & Life",short:"Earth",sub:"Climate, disasters, species"},
+ {id:"me",name:"Middle East",short:"Mid East",sub:"Mesopotamia, Levant, Persia"},
+ {id:"af",name:"Africa",short:"Africa",sub:"Egypt, Nubia, West, East, South"},
+ {id:"eu",name:"Europe",short:"Europe",sub:"Greece, Rome, and beyond"},
+ {id:"ru",name:"Russia & Steppe",short:"Russia Steppe",sub:"Russia, Caucasus, Central Asia, Mongolia"},
+ {id:"sa",name:"South Asia",short:"S. Asia",sub:"India, Pakistan, Sri Lanka"},
+ {id:"ea",name:"East Asia",short:"E. Asia",sub:"China, Tibet, Korea, Japan"},
+ {id:"am",name:"Americas",short:"Americas",sub:"North, Central, South"},
+ {id:"oc",name:"SE Asia & Oceania",short:"SE\u00a0Asia Pacific",sub:"Indonesia to Polynesia"}
+];
+const RMAP=Object.fromEntries(REG.map(r=>[r.id,r]));
+const KIND={a:"Archaeology (before writing)",h:"Recorded history",w:"First writing in this region",m:"Myth, legend & tradition",t:"Technology & science",x:"War & conflict",r:"Religion",n:"Earth & natural history"};
+const ICON={a:"·",h:"•",w:"✎",m:"✦",t:"⚙︎",x:"⚔︎",r:"◎",n:"❋"};
+const LAYER={a:"hist",h:"hist",w:"hist",n:"hist",t:"tech",x:"war",r:"relig",m:"myth"};
+const LAYERS=[["hist","History",""],["tech","Technology","⚙︎"],["war","Wars","⚔︎"],["relig","Religion","◎"],["myth","Myth & legend","✦"]];
+
+// ---------- data ----------
+[window.EXTRA,window.EXTRA2,window.EXTRA3,window.EXTRA4].forEach(a=>{if(a)a.forEach(r=>D.push(r));});
+const MOVE=window.MOVE||{},DESC=window.DESC||{},STORY=Object.assign({},window.STORY||{},window.STORY2||{});
+D.forEach(r=>{if(MOVE[r[3]])r[1]=MOVE[r[3]];if(!r[4]&&DESC[r[3]])r[4]=DESC[r[3]];});
+const EV=D.map((r,i)=>({id:i,y:r[0],r:r[1],k:r[2],t:r[3],x:r[4]||"",d:r[5]||fmtYear(r[0]),w:r[6]||""}));
+const THREADS=(window.THREADS||[]).concat(window.THREADS2||[]).map((t,i)=>{
+  const ids=[];t.steps.forEach(st=>{const [ti,yr]=st.split("|");const e=EV.find(e=>e.t===ti&&(!yr||e.y===+yr));if(e&&!ids.includes(e.id))ids.push(e.id);});
+  ids.sort((a,b)=>EV[a].y-EV[b].y);return Object.assign({},t,{ids,col:"var(--t"+(i%8)+")"});
+});
+const EV_THREADS={};THREADS.forEach(t=>t.ids.forEach(id=>{(EV_THREADS[id]=EV_THREADS[id]||[]).push(t)}));
+
+// ---------- formatting ----------
+function fmtYear(y){
+  if(y<=-1e6){const a=-y;return a>=1e9?Number((a/1e9).toPrecision(3))+" billion years ago":Number((a/1e6).toPrecision(3))+" million years ago";}
+  if(y<0){const a=-y;return (a>=10000?a.toLocaleString("en-US"):a)+" BCE";}
+  if(y===0)return "1 CE";
+  return y<1000?y+" CE":String(y);
+}
+function fmtAxis(y){
+  const a=-y;
+  if(y<=-1e9)return Number((a/1e9).toPrecision(2))+"<br>bn yrs";
+  if(y<=-1e6)return Number((a/1e6).toPrecision(3))+"<br>m yrs";
+  if(y<=-10000)return (a/1000)+"k<br>BCE";
+  if(y<0)return a+"<br>BCE";
+  if(y===0)return "1<br>CE";
+  return y<1000?y+"<br>CE":String(y);
+}
+function approx(y){
+  if(y<-1e6)return Number(y.toPrecision(2));
+  if(y<-20000)return Math.round(y/5000)*5000;
+  if(y<-4000)return Math.round(y/250)*250;
+  if(y<1500)return Math.round(y/10)*10||1;
+  if(y<1900)return Math.round(y/5)*5;
+  return Math.min(2026,Math.round(y));
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+// ---------- scale (horizontal) ----------
+const B=(()=>{const b=[-4.6e9,-4e9,-3e9,-2e9,-1e9,-6e8,-4.5e8,-3.5e8,-2.5e8,-2e8,-1e8,-5e7,-1e7,-5e6,-3e6,-2e6,-1e6,-300000,-100000,-50000,-30000,-20000,-15000,-12000,-10000,-8000,-6000,-5000,-4000];
+  for(let y=-3900;y<=1500;y+=100)b.push(y);
+  for(let y=1550;y<=1900;y+=50)b.push(y);
+  b.push(1925,1950,1975,2000,2027);return b;})();
+function bucketOf(y){let lo=0,hi=B.length-2;while(lo<hi){const m=(lo+hi+1)>>1;if(B[m]<=y)lo=m;else hi=m-1;}return lo;}
+let lefts=[],ws=[],total=0,rowH=34,AXH=24,LW=58,lensX=200,POS={},visCache=[],zcfg=null;
+function xOf(y){const i=bucketOf(y);return lefts[i]+(y-B[i])/(B[i+1]-B[i])*ws[i];}
+function yearAtX(px){if(px<=lefts[0])return B[0];for(let i=0;i<ws.length;i++){if(px<lefts[i]+ws[i])return B[i]+(px-lefts[i])/ws[i]*(B[i+1]-B[i]);}return B[B.length-1];}
+function axisLabel(y){const a=-y;
+  if(y<=-1e9)return Number((a/1e9).toPrecision(2))+" bn yrs ago";
+  if(y<=-1e6)return Number((a/1e6).toPrecision(3))+" m yrs ago";
+  if(y<=-10000)return (a/1000)+"k BCE";
+  if(y<0)return a+" BCE";if(y===0)return "1 CE";return y<1000?y+" CE":String(y);}
+
+// ---------- state ----------
+let S={regions:REG.map(r=>r.id),on:{hist:true,tech:true,war:true,relig:true,myth:true},lines:true,tip:true,zoom:2};
+try{const s=JSON.parse(localStorage.getItem("pht-v4")||"null");if(s){S=Object.assign(S,s);S.regions=S.regions.filter(id=>RMAP[id]);if(!S.regions.length)S.regions=REG.map(r=>r.id);}}catch(e){}
+function save(){try{localStorage.setItem("pht-v4",JSON.stringify(S))}catch(e){}}
+let selThread=null,stepIdx=0;
+function shown(e){return S.regions.includes(e.r)&&S.on[LAYER[e.k]];}
+const tlWrap=document.getElementById("tlWrap"),tl=document.getElementById("tl"),cv=document.getElementById("canvas"),lensEl=document.getElementById("lens"),rlBox=document.getElementById("rowLabels");
+const SIDE=window.matchMedia("(min-width:900px), (orientation:landscape) and (max-height:600px)");
+const ZOOMS=[{w:5,gap:2,minPre:8,min:5,band:26},{w:15,gap:3,minPre:22,min:16,band:40},{w:118,gap:6,minPre:70,min:40,band:128,lbl:true}];
+
+// ---------- render ----------
+function render(anchorYear){
+  const regs=REG.filter(r=>S.regions.includes(r.id)),n=regs.length;
+  const vis=EV.filter(shown);visCache=vis;
+    rowH=Math.max(24,Math.floor((tlWrap.clientHeight-AXH-1)/n));
+  const W=tlWrap.clientWidth;LW=W>=600?118:58;lensX=Math.round(LW+(W-LW)*0.5);
+  zcfg=Object.assign({},ZOOMS[S.zoom]);if(zcfg.lbl&&W<420){zcfg.w=96;zcfg.band=104;}const COL=zcfg.w+zcfg.gap,MH=Math.max(10,rowH-(zcfg.lbl?6:10));
+  const nb=B.length-1,per={};regs.forEach(r=>per[r.id]=Array.from({length:nb},()=>[]));
+  vis.forEach(e=>per[e.r][bucketOf(e.y)].push(e));
+  lefts=[];ws=[];total=lensX-zcfg.w-zcfg.gap;
+  for(let i=0;i<nb;i++){let k=0;regs.forEach(r=>{k=Math.max(k,per[r.id][i].length)});
+    const pre=B[i+1]<=-4000,w=Math.max(pre?zcfg.minPre:zcfg.min,k*COL+zcfg.gap);lefts.push(total);ws.push(w);total+=w;}
+  total+=W-lensX+zcfg.w;
+  const H=AXH+n*rowH;cv.style.width=total+"px";cv.style.height=H+"px";
+  let h='<div class="ax" style="height:'+AXH+'px">';let last=-999;
+  for(let i=0;i<nb;i++){if(lefts[i]-last<64)continue;last=lefts[i];const y=B[i];const maj=y<=-4000||y%1000===0||y===1500||y===1900||y===2000;
+    h+='<div class="lab'+(maj?' major':'')+'" style="left:'+lefts[i]+'px">'+axisLabel(y)+'</div>';}
+  h+='</div>';
+  last=-999;for(let i=0;i<nb;i++){if(lefts[i]-last<10)continue;last=lefts[i];const y=B[i];const maj=y<=-4000||y%1000===0||y===1500||y===1900;h+='<div class="gl'+(maj?' major':'')+'" style="left:'+lefts[i]+'px;top:'+AXH+'px"></div>';}
+  h+='<div class="deep" style="top:'+AXH+'px;height:'+(n*rowH)+'px;width:'+xOf(-300000).toFixed(0)+'px"></div>';
+  POS={};
+  regs.forEach((r,ri)=>{
+    const top=AXH+ri*rowH;
+    h+='<div class="row" style="top:'+top+'px;height:'+rowH+'px;--c:var(--r-'+r.id+')"></div>';
+    const w=EV.find(e=>e.r===r.id&&e.k==="w");if(w)h+='<div class="pre" style="top:'+top+'px;height:'+rowH+'px;width:'+xOf(w.y).toFixed(0)+'px;--c:var(--r-'+r.id+')"></div>';
+    per[r.id].forEach((list,i)=>{if(!list.length)return;list.sort((a,b)=>a.y-b.y);
+      const k=list.length,free=Math.max(0,ws[i]-zcfg.gap-k*COL),span=B[i+1]-B[i];
+      list.forEach((e,j)=>{const f=(e.y-B[i])/span,x=lefts[i]+zcfg.gap+f*free+j*COL,y=top+(rowH-MH)/2;
+        POS[e.id]={x:x+zcfg.w/2,y:top+rowH/2,ri};
+        const st='left:'+x.toFixed(1)+'px;top:'+y.toFixed(1)+'px;width:'+zcfg.w+'px;height:'+MH+'px;--c:var(--r-'+e.r+')';
+        const lbl=esc(e.t)+", "+esc(e.d);
+        if(zcfg.lbl){const tall=MH>=52,lines=Math.max(1,Math.floor((MH-(tall?22:8))/14));
+          h+='<button type="button" class="mk lbl '+e.k+(tall?' tall':'')+'" data-id="'+e.id+'" style="'+st+'" aria-label="'+lbl+'">'+(tall?'<small>'+esc(e.d)+'</small>':'')+'<span style="-webkit-line-clamp:'+lines+'">'+(e.k==="h"||e.k==="a"||e.k==="n"?"":ICON[e.k]+" ")+esc(e.t)+'</span></button>';}
+        else h+='<button type="button" class="mk '+e.k+(S.zoom===0?' tiny':'')+'" data-id="'+e.id+'" style="'+st+'" aria-label="'+lbl+'">'+(e.k==="h"||e.k==="a"||e.k==="n"?"":ICON[e.k])+'</button>';});});
+  });
+  h+='<svg id="threads" width="'+total+'" height="'+H+'"></svg>';
+  cv.innerHTML=h;
+  rlBox.innerHTML=regs.map((r,ri)=>'<button type="button" class="rl" data-reg="'+r.id+'" style="top:'+(AXH+ri*rowH)+'px;height:'+rowH+'px;width:'+LW+'px;--c:var(--r-'+r.id+')">'+esc(LW>=100?r.name:r.short)+'</button>').join("");
+  lensEl.style.left=(lensX-zcfg.band/2)+"px";lensEl.style.width=zcfg.band+"px";
+  drawThreads();
+  if(anchorYear!==undefined)tl.scrollLeft=Math.max(0,xOf(anchorYear)+zcfg.w/2-lensX);
+  zoomBtns();update(true);
+}
+function drawThreads(){
+  const svg=document.getElementById("threads");if(!svg)return;let h="";
+  THREADS.forEach(t=>{const isSel=selThread===t.id;if(!isSel&&(selThread||!S.lines))return;
+    const pts=t.ids.filter(id=>POS[id]).map(id=>POS[id]);if(pts.length<2)return;
+    let d="M"+pts[0].x.toFixed(1)+" "+pts[0].y.toFixed(1);
+    for(let i=1;i<pts.length;i++){const p=pts[i],q=pts[i-1];
+      if(q.ri===p.ri){const by=p.y-rowH*0.55;d+=" C"+q.x.toFixed(1)+" "+by.toFixed(1)+" "+p.x.toFixed(1)+" "+by.toFixed(1)+" "+p.x.toFixed(1)+" "+p.y.toFixed(1);}
+      else{const mx=(q.x+p.x)/2;d+=" C"+mx.toFixed(1)+" "+q.y.toFixed(1)+" "+mx.toFixed(1)+" "+p.y.toFixed(1)+" "+p.x.toFixed(1)+" "+p.y.toFixed(1);}}
+    h+='<path d="'+d+'" style="stroke:'+t.col+'" stroke-width="'+(isSel?3:1.3)+'" opacity="'+(isSel?0.95:0.4)+'"/>';
+    if(isSel)pts.forEach(p=>{h+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" style="fill:'+t.col+'"/>';});});
+  svg.innerHTML=h;
+  const sel=selThread&&THREADS.find(t=>t.id===selThread);
+  cv.querySelectorAll("[data-id]").forEach(b=>{b.classList.toggle("dim",!!sel&&!sel.ids.includes(+b.dataset.id));});
+}
+
+// ---------- live list ----------
+const pBody=document.getElementById("pBody"),pYear=document.getElementById("pYear"),pSub=document.getElementById("pSub");
+let lastKey="";
+function lensYears(){const c=tl.scrollLeft+lensX-zcfg.w/2,b=zcfg.band/2;return [yearAtX(c-b),yearAtX(c),yearAtX(c+b)];}
+function li(e,showReg,cur){return '<button type="button" class="li'+(e.k==="m"?" m":"")+(cur?" cur":"")+'" data-id="'+e.id+'" style="--c:var(--r-'+e.r+')"><span class="ly">'+esc(e.d.length>18?fmtYear(e.y):e.d)+'</span><span class="lt">'+(e.k==="h"||e.k==="a"?"":ICON[e.k]+" ")+esc(e.t)+(showReg?'<span class="lr">'+esc(RMAP[e.r].name)+'</span>':'')+'</span></button>';}
+function update(force){
+  const [y0,yc,y1]=lensYears(),ay=approx(yc);
+  document.getElementById("lensYear").textContent=axisLabel(ay).replace(" yrs ago","");
+  if(selThread){renderThreadPanel();return;}
+  const key=ay+"|"+y0+"|"+S.regions.join()+JSON.stringify(S.on);if(!force&&key===lastKey)return;lastKey=key;
+  pYear.textContent="≈ "+fmtYear(ay);
+  let list=visCache.filter(e=>e.y>=y0&&e.y<=y1),near=false;
+  if(!list.length){near=true;list=visCache.slice().sort((a,b)=>Math.abs(a.y-yc)-Math.abs(b.y-yc)).slice(0,6).sort((a,b)=>a.y-b.y);}
+  const rn=new Set(list.map(e=>e.r)).size;
+  pSub.textContent=near?"Quiet stretch: nearest events":list.length+" event"+(list.length===1?"":"s")+" · "+rn+" region"+(rn===1?"":"s");
+  let h="";
+  if(S.tip)h+='<div class="tip"><span>Swipe the timeline sideways to travel through time. Whatever sits under the highlight is listed here. Tap anything for its story.</span><button type="button" id="tipX" aria-label="Dismiss tip">✕</button></div>';
+  REG.forEach(r=>{const g=list.filter(e=>e.r===r.id);if(!g.length)return;h+='<div class="grp" style="--c:var(--r-'+r.id+')">'+esc(r.name)+'</div><div class="list">'+g.map(e=>li(e,false)).join("")+'</div>';});
+  pBody.innerHTML=h;
+}
+function threadIds(){const t=THREADS.find(t=>t.id===selThread);return t.ids.filter(id=>visCache.some(e=>e.id===id));}
+function renderThreadPanel(){
+  const t=THREADS.find(t=>t.id===selThread),ids=threadIds();
+  pYear.textContent="⇄ "+t.name;pSub.textContent=(stepIdx+1)+" of "+ids.length;
+  let h='<div class="tbar"><button type="button" id="tPrev">‹ Back</button><button type="button" id="tNext">Next ›</button><button type="button" id="tEnd">Close</button></div><p class="note" style="--c:'+t.col+';margin:2px 0 8px">'+esc(t.desc)+'</p><div class="list">';
+  ids.forEach((id,i)=>{h+=li(EV[id],true,i===stepIdx);});
+  pBody.innerHTML=h+'</div>';
+  const cur=pBody.querySelector(".li.cur");if(cur&&cur.scrollIntoView)cur.scrollIntoView({block:"nearest"});
+}
+let raf=0;tl.addEventListener("scroll",()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;update(false);});},{passive:true});
+tl.addEventListener("wheel",ev=>{if(Math.abs(ev.deltaY)>Math.abs(ev.deltaX)){tl.scrollLeft+=ev.deltaY;ev.preventDefault();}},{passive:false});
+pBody.addEventListener("click",ev=>{
+  if(ev.target.closest("#tipX")){S.tip=false;save();update(true);return;}
+  if(ev.target.closest("#tPrev")){step(-1);return;}if(ev.target.closest("#tNext")){step(1);return;}if(ev.target.closest("#tEnd")){selectThread(null);return;}
+  const b=ev.target.closest("[data-id]");if(b)showEvent(+b.dataset.id);
+});
+cv.addEventListener("click",ev=>{const b=ev.target.closest("[data-id]");if(b)showEvent(+b.dataset.id);});
+rlBox.addEventListener("click",ev=>{const r=ev.target.closest("[data-reg]");if(r)showRegion(r.dataset.reg);});
+function currentYear(){return yearAtX(tl.scrollLeft+lensX-zcfg.w/2);}
+function goTo(y,smooth){const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;tl.scrollTo({left:Math.max(0,xOf(y)+zcfg.w/2-lensX),behavior:smooth&&!reduce?"smooth":"auto"});}
+function setZoom(d){const y=currentYear();S.zoom=Math.max(0,Math.min(2,S.zoom+d));save();render(y);}
+function zoomBtns(){document.getElementById("zOut").disabled=S.zoom===0;document.getElementById("zIn").disabled=S.zoom===2;}
+document.getElementById("zOut").addEventListener("click",()=>setZoom(-1));
+document.getElementById("zIn").addEventListener("click",()=>setZoom(1));
+
+// ---------- threads ----------
+function selectThread(id,startId){
+  selThread=id||null;
+  if(selThread){const ids=threadIds();stepIdx=Math.max(0,startId!==undefined?ids.indexOf(startId):0);goTo(EV[ids[stepIdx]].y,true);}
+  drawThreads();lastKey="";update(true);
+  document.getElementById("nThreads").setAttribute("aria-pressed",!!selThread);
+}
+function step(d){const ids=threadIds();stepIdx=Math.min(ids.length-1,Math.max(0,stepIdx+d));goTo(EV[ids[stepIdx]].y,true);renderThreadPanel();}
+// ---------- sheets ----------
+const modal=document.getElementById("modal"),sheet=document.getElementById("sheet");let lastFocus=null;
+function openSheet(html){lastFocus=document.activeElement;sheet.innerHTML='<div class="grab"></div>'+html;sheet.scrollTop=0;modal.classList.add("open");const c=sheet.querySelector(".close");if(c)c.focus({preventScroll:true});}
+function closeSheet(){modal.classList.remove("open");if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true});}
+document.getElementById("backdrop").addEventListener("click",closeSheet);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeSheet();});
+function head(t){return '<div class="sheethead"><h2 id="sheetTitle">'+t+'</h2><button type="button" class="close" aria-label="Close">×</button></div>';}
+sheet.addEventListener("click",ev=>{
+  if(ev.target.closest(".close")){closeSheet();return;}
+  const th=ev.target.closest("[data-thread]");if(th){closeSheet();selectThread(th.dataset.thread,th.dataset.start!==undefined?+th.dataset.start:undefined);return;}
+  const b=ev.target.closest("[data-id]");if(b){showEvent(+b.dataset.id);return;}
+  const j=ev.target.closest("[data-goto]");if(j){closeSheet();goTo(+j.dataset.goto,true);return;}
+  const lay=ev.target.closest("[data-layer]");if(lay){const k=lay.dataset.layer;if(S.on[k]&&Object.values(S.on).filter(Boolean).length===1)return;S.on[k]=!S.on[k];afterFilter();lay.setAttribute("aria-pressed",S.on[k]);return;}
+  const rg=ev.target.closest("[data-rtoggle]");if(rg){const id=rg.dataset.rtoggle;if(S.regions.includes(id)){if(S.regions.length===1)return;S.regions=S.regions.filter(x=>x!==id);}else S.regions=REG.map(r=>r.id).filter(x=>x===id||S.regions.includes(x));afterFilter();rg.setAttribute("aria-pressed",S.regions.includes(id));return;}
+  const pr=ev.target.closest("[data-preset]");if(pr){const p=pr.dataset.preset;S.regions=p==="all"?REG.map(r=>r.id):p.split(",");afterFilter();openFilters();return;}
+  const ln=ev.target.closest("[data-lines]");if(ln){S.lines=!S.lines;afterFilter();ln.setAttribute("aria-pressed",S.lines);return;}
+});
+function afterFilter(){save();const y=currentYear();render(y);}
+
+function calendars(y){
+  if(y<-5000)return [];
+  const STEM="甲乙丙丁戊己庚辛壬癸",BR="子丑寅卯辰巳午未申酉戌亥",ANI=["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"],EL=["Wood","Wood","Fire","Fire","Earth","Earth","Metal","Metal","Water","Water"];
+  const a=y>0?y:y+1,o=[],n=v=>v.toLocaleString("en-US");
+  o.push(["Common Era (Gregorian)",fmtYear(y)]);
+  const am=a+3760;o.push(["Hebrew (Anno Mundi)",am>=1?"AM "+n(am):"Before year 1"]);
+  const ky=a+3101;o.push(["Hindu (Kali Yuga)",ky>=0?"Year "+n(ky):"Before the Kali Yuga"]);
+  const d=Math.floor((a+3113)*365.2425-222);
+  o.push(["Maya Long Count",d>=0?"≈ "+(Math.floor(d/144000)||13)+"."+Math.floor((d%144000)/7200)+".x.x.x":"Before the present creation"]);
+  const i=((a-4)%60+60)%60;o.push(["Chinese cycle",STEM[i%10]+BR[i%12]+" · "+EL[i%10]+" "+ANI[i%12]]);
+  const jp=a+660;o.push(["Japanese imperial (Kōki)",jp>=1?"Year "+n(jp):"Before Jimmu"]);
+  const be=a+543;o.push(["Buddhist Era",be>=1?"BE "+n(be):"Before the Buddha's passing"]);
+  const auc=a+753;o.push(["Roman (Ab urbe condita)",auc>=1?"AUC "+n(auc):"Before Rome's founding"]);
+  if(a>=-775&&a<=393)o.push(["Greek Olympiad","Olympiad "+(Math.floor((a+776)/4)+1)]);
+  const vs=a+57;if(vs>=1)o.push(["Vikram Samvat (India, Nepal)","VS "+n(vs)]);
+  if(a>=622)o.push(["Islamic (Hijri)","≈ AH "+n(Math.floor((a-622)*1.0307)+1)]);
+  return o;
+}
+function spanFor(y){if(y<-1e6)return Math.abs(y)*0.15;if(y<-20000)return Math.abs(y)*0.25;if(y<-4000)return 900;if(y<1500)return 100;if(y<1900)return 30;return 12;}
+
+function showEvent(id){
+  const e=EV[id],r=RMAP[e.r];
+  const span=spanFor(e.y)*1.5;
+  const near=visCache.filter(o=>o.r!==e.r&&Math.abs(o.y-e.y)<=span).sort((a,b)=>Math.abs(a.y-e.y)-Math.abs(b.y-e.y)).slice(0,10).sort((a,b)=>a.y-b.y);
+  let h=head(esc(e.t));
+  h+='<div class="tags" style="--c:var(--r-'+e.r+')"><span class="tag">'+esc(r.name)+'</span><span class="tag k">'+KIND[e.k]+'</span></div>';
+  h+='<div class="date" style="--c:var(--r-'+e.r+')">'+esc(e.d)+'</div>';
+  const mo=MORE[e.t];
+  if(mo&&mo.story)h+=mo.story.map(p=>'<p>'+p+'</p>').join("");
+  else{if(e.x)h+='<p>'+esc(e.x)+'</p>';if(STORY[e.t])h+=STORY[e.t].map(p=>'<p>'+esc(p)+'</p>').join("");}
+  if(e.k==="m")h+='<p class="note" style="--c:var(--r-'+e.r+')">Placed at the date the tradition itself gives, or where its story is set. This is a cultural date, not a historical finding.</p>';
+  if(e.k==="a")h+='<p class="note" style="--c:var(--r-'+e.r+')">Known from archaeology, before this region left written records.</p>';
+  const ths=EV_THREADS[id]||[];
+  if(ths.length)h+='<h3>Threads through this moment</h3><div class="tchips">'+ths.map(t=>'<button type="button" class="tchip" data-thread="'+t.id+'" data-start="'+id+'" style="--tc:'+t.col+'">⇄ '+esc(t.name)+'</button>').join("")+'</div>';
+  const links=(mo&&mo.links)?mo.links.slice():[];
+  const term=e.w||e.t;if(!links.length||e.w)links.push(["Wikipedia: "+term,"https://en.wikipedia.org/w/index.php?title=Special:Search&go=Go&search="+encodeURIComponent(term)]);
+  h+='<h3>'+(e.k==="m"?"Read the stories":"Read more")+'</h3><div class="links">'+links.map(l=>'<a href="'+esc(l[1])+'" target="_blank" rel="noopener">'+esc(l[0])+' ↗</a>').join("")+'</div>';
+  const cs=calendars(e.y);
+  if(cs.length)h+='<h3>This year in other calendars</h3><div class="cal">'+cs.map(c=>'<div><span>'+c[0]+'</span><b>'+c[1]+'</b></div>').join("")+'</div>';
+  h+='<h3>Meanwhile, elsewhere</h3>'+(near.length?'<div class="list">'+near.map(o=>li(o,true)).join("")+'</div>':'<p class="note" style="--c:var(--line)">Nothing in the other shown regions close to this date.</p>');
+  h+='<div class="row2"><button type="button" data-goto="'+e.y+'">Show on timeline</button></div>';
+  openSheet(h);
+}
+function showRegion(id){const r=RMAP[id];const n=EV.filter(e=>e.r===id).length;
+  openSheet(head(esc(r.name))+'<p>'+esc(r.sub)+'. '+n+' entries.</p><div class="row2"><button type="button" data-preset="'+id+'">Show only this region</button><button type="button" data-preset="all">Show all regions</button></div>');}
+
+function openFilters(){
+  let h=head("Filters");
+  h+='<h3>Layers</h3><div class="toggles">'+LAYERS.map(([k,l,i])=>'<button type="button" class="tg" data-layer="'+k+'" aria-pressed="'+S.on[k]+'" style="--c:var(--accent)"><span class="bx">✓</span>'+(i?i+" ":"")+l+'</button>').join("")+'<button type="button" class="tg" data-lines="1" aria-pressed="'+S.lines+'" style="--c:var(--accent)"><span class="bx">✓</span>⇄ Thread lines</button></div>';
+  h+='<h3>Regions</h3><div class="toggles">'+REG.map(r=>'<button type="button" class="tg" data-rtoggle="'+r.id+'" aria-pressed="'+S.regions.includes(r.id)+'" style="--c:var(--r-'+r.id+')"><span class="bx">✓</span>'+esc(r.name)+'</button>').join("")+'</div>';
+  h+='<p class="note" style="--c:var(--accent)">Fewer regions make each row taller, so names on the timeline get two lines.</p>';
+  h+='<div class="row2"><button type="button" data-preset="all">All regions</button><button type="button" data-preset="me,eu,ea">Middle East · Europe · East Asia</button><button type="button" data-preset="af,am,eu">Africa · Americas · Europe</button><button type="button" data-preset="nt,me,sa">Earth · Middle East · South Asia</button></div>';
+  openSheet(h);
+}
+function openThreads(){
+  let h=head("Threads")+'<p>Threads follow one story as it crosses regions: trade, faiths, conquests, inventions, disease, climate and shared myths. Pick one to light it up and step through it.</p>';
+  if(selThread)h+='<div class="row2"><button type="button" data-thread="">Close current thread</button></div>';
+  h+='<div class="thl">'+THREADS.map(t=>'<button type="button" data-thread="'+t.id+'" style="--tc:'+t.col+'"><span class="sw"></span><span><b>'+esc(t.name)+'</b><span>'+esc(t.desc)+' '+t.ids.length+' steps.</span></span></button>').join("")+'</div>';
+  openSheet(h);
+}
+const JUMPS=[[-4.54e9,"Earth forms","4.5 billion years ago"],[-251.9e6,"The Great Dying","252 million years ago"],[-66e6,"Dinosaurs die out","66 million years ago"],[-2.8e6,"First humans","2.8 million years ago"],[-300000,"Our species","300,000 BCE"],[-24000,"Ice Age peak","c. 24,000 BCE"],[-9500,"First farms & temples","c. 9500 BCE"],[-3300,"Writing begins","3300 BCE"],[-2200,"Pyramids & drought","c. 2200 BCE"],[-1200,"Bronze Age collapse","c. 1200 BCE"],[-500,"Axial Age","c. 500 BCE"],[1,"Turn of the eras","1 CE"],[750,"Caliphs & Tang","c. 750 CE"],[1250,"Mongol world","c. 1250"],[1500,"Age of contact","1500"],[1800,"Revolutions","1800"],[1945,"World wars end","1945"],[2026,"Today","2026"]];
+function openEras(){openSheet(head("Jump to an era")+'<div class="jumps">'+JUMPS.map(j=>'<button type="button" data-goto="'+j[0]+'"><b>'+j[1]+'</b><span>'+j[2]+'</span></button>').join("")+'</div>');}
+function openFaiths(){
+  const S0=-3500,E=2026,Wd=E-S0,pc=y=>((Math.max(S0,Math.min(E,y))-S0)/Wd*100);
+  const ticks=[-3000,-2000,-1000,1,1000,2000];
+  const tk='<div class="fticks"><i></i><div>'+ticks.map(t=>'<span style="left:'+pc(t).toFixed(2)+'%">'+(t<0?(-t)+" BCE":t===1?"1 CE":t)+'</span>').join("")+'</div></div>';
+  let h=head("The rise and fall of religions")+'<p class="note" style="--c:var(--accent)">Bars run from when each faith emerges to when it stopped being practiced. An arrow means it is still alive. Ancient start dates are approximate.</p>'+tk+'<div class="fchart">';
+  FAITHS.slice().sort((a,b)=>a[2]-b[2]).forEach(([n,r,s,e,note])=>{const end=e===null?E:e,L=pc(s),w=Math.max(0.8,pc(end)-L);
+    h+='<div class="frow" style="--c:var(--r-'+r+')" title="'+esc(note)+'"><div class="fname">'+esc(n)+'<small>'+(s<-10000?"Ancient":fmtYear(s))+" to "+(e===null?"today":fmtYear(e))+'</small></div><div class="ftrack"><div class="fbar'+(e===null?" live":"")+(s<S0?" old":"")+'" style="left:'+L.toFixed(2)+'%;width:'+w.toFixed(2)+'%"></div></div></div>';});
+  openSheet(h+'</div>'+tk);
+}
+function openGuide(){
+  let h=head("How to read this timeline");
+  h+='<p><b>Rows.</b> Each colored row is a region; the top row is the Earth itself. Swipe sideways to move through time, left to right. Every row stays on screen, so things lined up vertically happened at about the same time.</p>';
+  h+='<p><b>The highlight.</b> The shaded band in the middle is your moment. The list shows everything under it, region by region, and updates as you swipe.</p>';
+  h+='<p><b>Zoom.</b> Use − and + next to the year. Zoomed in, names appear right on the timeline; zoomed out, you see thousands of years and every thread at once.</p>';
+  h+='<div class="legend"><div><span class="mk h" style="--c:var(--r-eu)"></span>Recorded history</div><div><span class="mk t" style="--c:var(--r-eu)">⚙\uFE0E</span>Technology & science</div><div><span class="mk x" style="--c:var(--r-eu)">⚔\uFE0E</span>War & conflict</div><div><span class="mk r" style="--c:var(--r-eu)">◎</span>Religion</div><div><span class="mk m" style="--c:var(--r-eu)">✦</span>Myth, legend & tradition (dashed)</div><div><span class="mk w" style="--c:var(--r-eu)">✎</span>First writing in a region</div></div>';
+  h+='<p><b>Hatching</b> at the start of a row is that region\'s time before writing, known only from archaeology. Faint stripes at the far left are deep time, before our species.</p>';
+  h+='<p><b>Threads</b> are the colored lines linking rows: the Silk Road, the spread of faiths, conquests, inventions, plagues, volcanoes and shared myths. Open Threads to light one up and step through it.</p>';
+  h+='<p><b>Scale.</b> Time stretches where history is crowded, so 4.5 billion years fit at the start while recent centuries get more room.</p>';
+  h+='<p><b>Dates.</b> Ancient dates are approximate. Myths sit at the date their own tradition gives, as cultural history rather than claims about what happened.</p>';
+  h+='<p class="note" style="--c:var(--line)">'+EV.length.toLocaleString("en-US")+' entries · '+THREADS.length+' threads · '+REG.length+' rows.</p>';
+  openSheet(h);
+}
+function norm(s){return s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();}
+function openSearch(){
+  openSheet(head("Search")+'<label class="sr-only" for="q">Search</label><input id="q" class="q" type="search" placeholder="Try Troy, gunpowder, dodo, Buddha…" autocomplete="off"><p class="note" id="sn" style="--c:var(--line)">'+EV.length.toLocaleString("en-US")+' entries across every lane and layer.</p><div id="sr" class="list"></div>');
+  const q=document.getElementById("q"),sr=document.getElementById("sr"),sn=document.getElementById("sn");
+  q.addEventListener("input",()=>{const t=norm(q.value.trim());if(t.length<2){sr.innerHTML="";return;}
+    const hits=EV.filter(e=>norm(e.t+" "+e.x+" "+e.d+" "+e.w+" "+RMAP[e.r].name).includes(t)).sort((a,b)=>a.y-b.y);
+    sn.textContent=hits.length+" result"+(hits.length===1?"":"s")+(hits.length>80?", showing the first 80":"");sr.innerHTML=hits.slice(0,80).map(e=>li(e,true)).join("");});
+  setTimeout(()=>q.focus(),50);
+}
+document.getElementById("searchBtn").addEventListener("click",openSearch);
+document.getElementById("nFilters").addEventListener("click",openFilters);
+document.getElementById("nThreads").addEventListener("click",openThreads);
+document.getElementById("nEras").addEventListener("click",openEras);
+document.getElementById("nFaiths").addEventListener("click",openFaiths);
+document.getElementById("nGuide").addEventListener("click",openGuide);
+let rt=0;window.addEventListener("resize",()=>{clearTimeout(rt);const y=currentYear();rt=setTimeout(()=>render(y),150);});
+render(-3300);
+</script>
+</body>
+</html>
