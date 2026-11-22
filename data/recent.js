@@ -1,0 +1,72 @@
+// 2023 to November 2026, plus the Cosmos row. [year, region, kind, title, description, date label, reference article]
+window.EXTRA5=[
+// ---------- COSMOS ----------
+[-13800000000,"cs","n","The Big Bang","Space, time and matter begin expanding from an extremely hot, dense state.","13.8 billion years ago","Big Bang"],
+[-13799620000,"cs","n","First atoms & the cosmic background","About 380,000 years after the Big Bang the universe cools enough for atoms to form; light from this moment is the cosmic microwave background, still visible today.","13.8 billion years ago","Cosmic microwave background"],
+[-13600000000,"cs","n","First stars","After the cosmic 'dark ages', the first stars ignite, roughly 100 to 200 million years after the Big Bang.","c. 13.6 billion years ago","Stellar population"],
+[-13500000000,"cs","n","The Milky Way begins","Our galaxy's oldest stars form; it grows by swallowing smaller galaxies.","c. 13.5 billion years ago","Milky Way"],
+[-10000000000,"cs","n","Cosmic noon & a galactic merger","The universe forms stars at its fastest rate. The Milky Way absorbs the Gaia-Enceladus galaxy around this time.","c. 10 billion years ago","Gaia Sausage"],
+[-4600000000,"cs","n","The Sun forms","A cloud of gas and dust collapses, perhaps triggered by a nearby supernova; the planets form from the disc around it.","4.6 billion years ago","Formation and evolution of the Solar System"],
+[-3900000000,"cs","n","Heavy bombardment?","Moon rocks once suggested a spike of impacts on the inner planets; many scientists now doubt it was a single spike.","c. 4.1 to 3.8 billion years ago (debated)","Late Heavy Bombardment"],
+[1054,"cs","n","Supernova of 1054","Chinese and Japanese astronomers record a 'guest star' bright enough to see by day; its remains are the Crab Nebula.","1054","SN 1054"],
+[1572,"cs","n","Tycho's supernova","Shows the heavens can change, undermining the belief in unchanging skies.","1572","SN 1572"],
+[1929,"cs","n","The universe is expanding","Edwin Hubble shows galaxies are rushing apart, building on Georges Lemaître's work.","1929","Hubble's law"],
+[1965,"cs","n","Echo of the Big Bang found","Penzias and Wilson detect the cosmic microwave background.","1965","Discovery of cosmic microwave background radiation"],
+[1994,"cs","n","Comet hits Jupiter","Shoemaker-Levy 9's fragments slam into Jupiter, the first collision between solar-system bodies ever observed.","1994","Comet Shoemaker–Levy 9"],
+[1995,"cs","n","First planet around a Sun-like star","51 Pegasi b; over 6,000 exoplanets are now known.","1995","51 Pegasi b"],
+[2012,"cs","n","Voyager 1 enters interstellar space","The first human-made object to leave the Sun's bubble.","2012","Voyager 1"],
+[2015,"cs","n","Gravitational waves detected","LIGO hears two black holes merging, as Einstein predicted.","2015","First observation of gravitational waves"],
+[2019,"cs","n","First image of a black hole","The Event Horizon Telescope photographs the black hole in galaxy M87.","2019","Event Horizon Telescope"],
+[2022,"cs","n","Webb's first deep field","The James Webb telescope shows thousands of galaxies in a speck of sky.","2022","Webb's First Deep Field"],
+[2025,"cs","n","3I/ATLAS","The third known interstellar object passes through the solar system.","2025","3I/ATLAS"],
+[2026,"cs","n","Total solar eclipse over Europe","The first total eclipse visible from mainland Europe since 1999 crosses Greenland, Iceland, Portugal and Spain on 12 August.","12 Aug 2026","Solar eclipse of August 12, 2026"],
+
+// ---------- 2023 ----------
+[2023,"nt","n","Turkey-Syria earthquakes","Two great quakes on 6 February kill over 50,000 people in Turkey and thousands more in Syria.","6 Feb 2023","2023 Turkey–Syria earthquakes"],
+[2023,"af","x","Sudan's civil war begins","The army and the Rapid Support Forces turn on each other in April; by 2026 nearly 11 million people have been displaced and famine is confirmed in parts of Darfur and Kordofan.","15 Apr 2023","Sudanese civil war (2023–present)"],
+[2023,"sa","h","India becomes the most populous country","UN estimates show India passing China in population.","Apr 2023","Demographics of India"],
+[2023,"ru","x","Wagner mutiny","Mercenary chief Yevgeny Prigozhin marches on Moscow, then stands down; he dies in a plane crash two months later.","24 Jun 2023","Wagner Group rebellion"],
+[2023,"ru","x","Exodus from Nagorno-Karabakh","Azerbaijan takes the region in a one-day offensive; over 100,000 Armenians flee.","Sep 2023","2023 flight of Nagorno-Karabakh Armenians"],
+[2023,"af","n","Morocco earthquake & Libya floods","An earthquake kills about 3,000 in Morocco; days later Storm Daniel bursts dams above Derna, Libya, killing thousands.","Sep 2023","2023 Marrakesh–Safi earthquake"],
+
+// ---------- 2024 ----------
+[2024,"ea","n","Noto earthquake","A New Year's Day quake devastates Japan's Noto Peninsula.","1 Jan 2024","2024 Noto earthquake"],
+[2024,"sa","h","Bangladesh uprising","Student-led protests force Prime Minister Sheikh Hasina from power after 15 years.","5 Aug 2024","July Revolution (Bangladesh)"],
+[2024,"me","x","Hezbollah war & Nasrallah killed","Israel escalates its war with Hezbollah in Lebanon and kills its leader Hassan Nasrallah.","Sep 2024","Assassination of Hassan Nasrallah"],
+[2024,"me","x","Fall of Assad","Rebels led by Hay'at Tahrir al-Sham take Damascus on 8 December, ending 53 years of Assad family rule; Ahmed al-Sharaa becomes president in January 2025.","8 Dec 2024","Fall of the Assad regime"],
+[2024,"ea","h","Martial law in South Korea","President Yoon Suk Yeol declares martial law; parliament overturns it within hours. He is removed from office in 2025 and Lee Jae-myung is elected.","3 Dec 2024","2024 South Korean martial law crisis"],
+[2024,"eu","t","AlphaFold wins the Nobel","AI that predicts protein structures shares the Nobel Prize in Chemistry.","2024","AlphaFold"],
+[2024,"eu","n","Valencia floods","A storm drops a year's rain in hours on eastern Spain; over 220 die.","29 Oct 2024","2024 Spanish floods"],
+[2024,"am","t","Starship booster caught","SpaceX catches a returning rocket booster with the launch tower's arms.","Oct 2024","SpaceX Starship"],
+
+// ---------- 2025 ----------
+[2025,"am","n","Los Angeles wildfires","Wind-driven fires destroy thousands of homes in Pacific Palisades and Altadena.","Jan 2025","January 2025 Southern California wildfires"],
+[2025,"ea","t","DeepSeek","A Chinese AI model rivals US systems at a fraction of the cost.","Jan 2025","DeepSeek"],
+[2025,"am","h","US tariff shock","Sweeping US tariffs announced on 2 April set off a global trade war.","2 Apr 2025","Liberation Day tariffs"],
+[2025,"oc","n","Myanmar earthquake","A magnitude 7.7 quake near Mandalay kills at least 3,800 people amid civil war.","28 Mar 2025","2025 Myanmar earthquake"],
+[2025,"eu","r","Pope Francis dies; Leo XIV elected","The first Latin American pope dies on Easter Monday; Robert Prevost of Chicago and Peru becomes the first pope from the United States.","Apr to May 2025","Pope Leo XIV"],
+[2025,"sa","x","India-Pakistan clashes","After a massacre of tourists at Pahalgam in Kashmir, India strikes Pakistan and four days of missile and drone fighting follow.","May 2025","2025 India–Pakistan conflict"],
+[2025,"me","x","Twelve-Day War","Israel strikes Iran's nuclear program and leaders on 13 June; the US bombs nuclear sites at Fordow and elsewhere before a ceasefire on 24 June.","Jun 2025","Iran–Israel war"],
+[2025,"nt","n","Afghanistan earthquake","A shallow quake in the east kills about 2,200 people.","31 Aug 2025","2025 Kunar earthquake"],
+[2025,"sa","h","Nepal's Gen Z uprising","Protests over a social-media ban and corruption topple the government; Sushila Karki becomes Nepal's first woman prime minister.","Sep 2025","2025 Nepalese Gen Z protests"],
+[2025,"me","h","Gaza ceasefire","A US-brokered deal halts two years of war on 10 October; the last living Israeli hostages and nearly 2,000 Palestinian prisoners are released.","10 Oct 2025","Gaza peace plan"],
+[2025,"ea","h","Japan's first woman prime minister","Sanae Takaichi takes office.","21 Oct 2025","Sanae Takaichi"],
+[2025,"af","x","El Fasher falls","The RSF takes Darfur's last army-held city after an 18-month siege; a UN inquiry later finds 'hallmarks of genocide'.","26 Oct 2025","Siege of El Fasher"],
+[2025,"am","n","Hurricane Melissa","One of the strongest Atlantic landfalls on record devastates Jamaica.","28 Oct 2025","Hurricane Melissa"],
+[2025,"nt","n","Wind and solar overtake coal","Combined wind and solar generation passes coal as a source of the world's electricity.","2025","Renewable energy"],
+
+// ---------- 2026 ----------
+[2026,"am","x","US seizes Maduro","In 'Operation Absolute Resolve' US forces strike Venezuela and capture President Nicolás Maduro, flying him to New York for trial; Delcy Rodríguez becomes interim president.","3 Jan 2026","2026 United States strikes in Venezuela"],
+[2026,"me","h","Gaza ceasefire: phase two","A Palestinian technocratic committee under a US-chaired 'Board of Peace' is set up; disarmament and withdrawal remain disputed.","14 Jan 2026","Board of Peace"],
+[2026,"me","x","Iran war","US and Israeli strikes beginning 28 February kill Supreme Leader Ali Khamenei and dozens of officials; Iran fires missiles and drones across the region and shipping through the Strait of Hormuz is choked off. His son Mojtaba is named successor on 8 March; a ceasefire takes hold on 8 April.","28 Feb 2026","2026 Iran war"],
+[2026,"am","t","Artemis II","Reid Wiseman, Victor Glover, Christina Koch and Jeremy Hansen fly around the Moon: the first humans beyond Earth orbit since 1972.","1 Apr 2026","Artemis II"],
+[2026,"eu","h","Orbán defeated","Péter Magyar's Tisza party wins a two-thirds majority, ending 16 years of Viktor Orbán's rule in Hungary.","12 Apr 2026","2026 Hungarian parliamentary election"],
+[2026,"me","h","UAE leaves OPEC","","1 May 2026","OPEC"],
+[2026,"am","n","Venezuela earthquakes","Magnitude 7.2 and 7.5 quakes topple buildings along the coast near Caracas.","24 Jun 2026","2026 Venezuela earthquakes"],
+[2026,"am","h","US turns 250","The semiquincentennial of the Declaration of Independence; the 48-team World Cup across the US, Canada and Mexico ends with Spain as champion.","4 Jul 2026","United States Semiquincentennial"],
+[2026,"am","n","Colombia earthquake","A magnitude 7.4 quake strikes western Colombia, days after President Abelardo de la Espriella takes office.","10 Aug 2026","2026 Colombia earthquake"],
+[2026,"sa","n","Nepal-China border floods","A landslide sets off catastrophic flash floods; hundreds are dead or missing, including foreign tourists and pilgrims.","26 Aug 2026","2026 Nepal floods"],
+[2026,"af","h","Morocco's first woman prime minister","Fatima Ezzahra El Mansouri is appointed after her party wins the September election.","29 Sep 2026","Prime Minister of Morocco"],
+[2026,"am","h","US midterm elections","Americans vote for all 435 House seats and a third of the Senate.","3 Nov 2026","2026 United States elections"],
+[2026,"ru","h","Ukraine peace talks resume","Russian and Ukrainian delegations meet in Abu Dhabi under US mediation after a nine-month pause, agreeing a large prisoner exchange but no ceasefire as the war nears its fifth year.","10 Nov 2026","Peace negotiations in the Russian invasion of Ukraine"]
+];

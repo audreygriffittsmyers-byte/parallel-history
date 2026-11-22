@@ -14,21 +14,21 @@
   --bg:#eceeec; --surface:#fafbfa; --ink:#1a1e22; --muted:#59616a; --line:#d3d8d4; --accent:#0d5c63; --on-c:#ffffff; --lens:rgba(13,92,99,.10);
   --display:"Fraunces", Georgia, "Times New Roman", serif;
   --body:"Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
-  --r-nt:#4f6b2a; --r-me:#9a5b06; --r-af:#b42318; --r-eu:#2348c9; --r-ru:#8b3a62; --r-sa:#d2540c; --r-ea:#7337d6; --r-am:#17803d; --r-oc:#0b6f86;
+  --r-cs:#3f3d99; --r-nt:#4f6b2a; --r-me:#9a5b06; --r-af:#b42318; --r-eu:#2348c9; --r-ru:#8b3a62; --r-sa:#d2540c; --r-ea:#7337d6; --r-am:#17803d; --r-oc:#0b6f86;
   --t0:#e11d48; --t1:#0891b2; --t2:#ca8a04; --t3:#7c3aed; --t4:#059669; --t5:#ea580c; --t6:#db2777; --t7:#2563eb;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#111518; --surface:#192024; --ink:#e6eae8; --muted:#9ca5ac; --line:#2a3338; --accent:#62c6cd; --on-c:#101416; --lens:rgba(98,198,205,.13);
-    --r-nt:#a3c46b; --r-me:#e3ab4c; --r-af:#f27b72; --r-eu:#86a2ff; --r-ru:#e690c0; --r-sa:#ff9c57; --r-ea:#b896ff; --r-am:#62d18d; --r-oc:#4cc8dd;
+    --r-cs:#a5a8ff; --r-nt:#a3c46b; --r-me:#e3ab4c; --r-af:#f27b72; --r-eu:#86a2ff; --r-ru:#e690c0; --r-sa:#ff9c57; --r-ea:#b896ff; --r-am:#62d18d; --r-oc:#4cc8dd;
     --t0:#fb7185; --t1:#22d3ee; --t2:#facc15; --t3:#a78bfa; --t4:#34d399; --t5:#fb923c; --t6:#f472b6; --t7:#60a5fa;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#111518; --surface:#192024; --ink:#e6eae8; --muted:#9ca5ac; --line:#2a3338; --accent:#62c6cd; --on-c:#101416; --lens:rgba(98,198,205,.13);
-  --r-nt:#a3c46b; --r-me:#e3ab4c; --r-af:#f27b72; --r-eu:#86a2ff; --r-ru:#e690c0; --r-sa:#ff9c57; --r-ea:#b896ff; --r-am:#62d18d; --r-oc:#4cc8dd;
+  --r-cs:#a5a8ff; --r-nt:#a3c46b; --r-me:#e3ab4c; --r-af:#f27b72; --r-eu:#86a2ff; --r-ru:#e690c0; --r-sa:#ff9c57; --r-ea:#b896ff; --r-am:#62d18d; --r-oc:#4cc8dd;
   --t0:#fb7185; --t1:#22d3ee; --t2:#facc15; --t3:#a78bfa; --t4:#34d399; --t5:#fb923c; --t6:#f472b6; --t7:#60a5fa;
   color-scheme:dark;
 }
@@ -56,7 +56,7 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .row:nth-child(even){background:color-mix(in srgb, var(--ink) 2.5%, transparent)}
 .pre{position:absolute;left:0;background:repeating-linear-gradient(45deg, transparent 0 6px, color-mix(in srgb, var(--c) 9%, transparent) 6px 7px)}
 .deep{position:absolute;left:0;background:repeating-linear-gradient(90deg, transparent 0 9px, color-mix(in srgb, var(--r-nt) 7%, transparent) 9px 10px)}
-#threads{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+#threads{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:4}
 #threads path{fill:none;stroke-linecap:round}
 .mk{position:absolute;border:0;border-radius:3px;background:color-mix(in srgb, var(--c) 25%, var(--surface));color:var(--c);padding:0;font-size:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .15s}
 .mk.h,.mk.n{background:var(--c);color:var(--on-c)}
@@ -161,6 +161,53 @@ nav.bn button[aria-pressed="true"],nav.bn button[aria-pressed="true"] i{color:va
 .fticks div{position:relative;height:14px}
 .fticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 
+
+:root{--gold:#b7791f}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold:#f6c453}}
+:root[data-theme="dark"]{--gold:#f6c453}
+.band{position:absolute;border:0;padding:0;border-radius:3px;background:color-mix(in srgb, var(--c) 22%, var(--bg));border-left:2px solid var(--c);overflow:visible;text-align:left;font-size:9.5px;line-height:1;color:var(--ink);font-weight:600;white-space:nowrap;cursor:pointer;z-index:1}
+.band span{position:sticky;left:var(--lw);display:inline-block;padding:1px 4px 0;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:top}
+.band.trad{background:repeating-linear-gradient(90deg, color-mix(in srgb, var(--c) 22%, var(--bg)) 0 6px, transparent 6px 9px)}
+.mk{z-index:2}
+.mk.lm{box-shadow:0 0 0 2px var(--gold),0 2px 8px color-mix(in srgb, var(--gold) 45%, transparent);z-index:3}
+.mk.lbl.lm{border-left-color:var(--gold);font-weight:700;background:color-mix(in srgb, var(--gold) 16%, color-mix(in srgb, var(--c) 14%, var(--surface)))}
+.mk.lm:not(.lbl){color:var(--on-c);font-size:10px}
+.mk.tiny.lm{box-shadow:0 0 0 1.5px var(--gold)}
+.mk.lbl.cf small{color:var(--muted)}
+#threads .stop text{font:700 10px var(--body);fill:#fff}
+#threads .stop.cur circle{stroke:var(--ink);stroke-width:2}
+.eras{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:6px 0 4px}
+.erl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:2px}
+.era{border:0;border-left:3px solid var(--c);background:color-mix(in srgb, var(--c) 14%, var(--bg));border-radius:3px;padding:3px 7px;font-size:11.5px;font-weight:600}
+.li.lm{border-left-color:var(--gold);background:color-mix(in srgb, var(--gold) 12%, color-mix(in srgb, var(--c) 8%, var(--bg)))}
+.li.lm .lt{font-weight:700}
+.star{font-style:normal;color:var(--gold)}
+.cfi{font-style:normal;color:var(--muted);font-size:.9em}
+.sb{display:inline-block;margin-left:6px;font-size:9.5px;font-weight:600;font-style:normal;padding:1px 5px;border-radius:999px;background:var(--bg);color:var(--muted);border:1px solid var(--line);vertical-align:1px;white-space:nowrap}
+.sb.sX{border-color:color-mix(in srgb, #c2410c 60%, var(--line));color:#c2410c}
+.sb.sS,.sb.sN,.sb.sW,.sb.sT,.sb.sM{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sb.sX{color:#fb923c}}
+.whose{margin:8px 0;padding:8px 10px;border-radius:8px;background:var(--bg);font-size:13.5px;line-height:1.45;border-left:3px solid var(--accent)}
+.whose.sX{border-left-color:#c2410c}
+.whose.sA,.whose.sO{border-left-color:var(--gold)}
+.views{display:flex;flex-direction:column;gap:6px}
+.view{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:8px;background:var(--bg);border-left:3px solid var(--muted)}
+.view b{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.view span{font-size:14px;line-height:1.4}
+.links.ref a{font-weight:500;color:var(--muted)}
+.stepcard{border:2px solid var(--tc);border-radius:10px;padding:9px 11px;background:color-mix(in srgb, var(--tc) 7%, var(--bg));margin:4px 0}
+.stepcard .sn{font-size:11px;color:var(--muted);font-weight:600}
+.stepcard .st{display:block;border:0;background:none;padding:2px 0;text-align:left;font-family:var(--display);font-weight:650;font-size:18px;color:var(--ink)}
+.stepcard p{margin:4px 0;font-size:13.5px;line-height:1.4}
+.stepcard .nx{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:5px;margin-top:4px}
+.tbar button:disabled{opacity:.4}
+.li.num{position:relative;padding-left:30px}
+.li.num::before{content:attr(data-n);position:absolute;left:8px;top:6px;width:16px;height:16px;border-radius:50%;background:var(--c);color:var(--on-c);font-size:9.5px;font-weight:700;display:grid;place-items:center}
+.thl .route{display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-top:5px}
+.thl .route i{font-style:normal;font-size:10.5px;font-weight:700;color:var(--c);border:1px solid var(--c);border-radius:999px;padding:1px 6px;white-space:nowrap}
+.thl .route em{font-style:normal;color:var(--muted);font-size:11px}
+.thl .cnt{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}
+
 /* Side-by-side everywhere: timeline left, facts right */
 main{flex-direction:row}
 .tlWrap{flex:1;height:auto;border-bottom:0;border-right:1px solid var(--line);min-width:0}
@@ -188,7 +235,7 @@ main{flex-direction:row}
 </head>
 <body>
 <header class="top">
-  <h1>Parallel History<small>Earth and every civilization, on one timeline</small></h1>
+  <h1>Parallel History<small>The universe, the Earth and every civilization, on one timeline</small></h1>
   <button class="pill" id="searchBtn" type="button">Search</button>
 </header>
 <main>
@@ -222,8 +269,12 @@ main{flex-direction:row}
 <script src="data/extra2.js"></script>
 <script src="data/threads.js"></script>
 <script src="data/nature.js"></script>
+<script src="data/recent.js"></script>
+<script src="data/periods.js"></script>
+<script src="data/perspective.js"></script>
 <script>
 const REG=[
+ {id:"cs",name:"Cosmos",short:"Cosmos",sub:"Universe, galaxy, Sun"},
  {id:"nt",name:"Earth & Life",short:"Earth",sub:"Climate, disasters, species"},
  {id:"me",name:"Middle East",short:"Mid East",sub:"Mesopotamia, Levant, Persia"},
  {id:"af",name:"Africa",short:"Africa",sub:"Egypt, Nubia, West, East, South"},
@@ -241,10 +292,29 @@ const LAYER={a:"hist",h:"hist",w:"hist",n:"hist",t:"tech",x:"war",r:"relig",m:"m
 const LAYERS=[["hist","History",""],["tech","Technology","⚙︎"],["war","Wars","⚔︎"],["relig","Religion","◎"],["myth","Myth & legend","✦"]];
 
 // ---------- data ----------
-[window.EXTRA,window.EXTRA2,window.EXTRA3,window.EXTRA4].forEach(a=>{if(a)a.forEach(r=>D.push(r));});
+[window.EXTRA,window.EXTRA2,window.EXTRA3,window.EXTRA4,window.EXTRA5].forEach(a=>{if(a)a.forEach(r=>D.push(r));});
 const MOVE=window.MOVE||{},DESC=window.DESC||{},STORY=Object.assign({},window.STORY||{},window.STORY2||{});
-D.forEach(r=>{if(MOVE[r[3]])r[1]=MOVE[r[3]];if(!r[4]&&DESC[r[3]])r[4]=DESC[r[3]];});
+const REWRITE=window.REWRITE||{},SRC=window.SRC||{},CONFLICTS=window.CONFLICTS||{},PRIMARY=window.PRIMARY||{},LM=new Set(window.LANDMARKS||[]),PERIODS=window.PERIODS||[];
+D.forEach(r=>{if(MOVE[r[3]])r[1]=MOVE[r[3]];if(!r[4]&&DESC[r[3]])r[4]=DESC[r[3]];if(REWRITE[r[3]])r[4]=REWRITE[r[3]];});
 const EV=D.map((r,i)=>({id:i,y:r[0],r:r[1],k:r[2],t:r[3],x:r[4]||"",d:r[5]||fmtYear(r[0]),w:r[6]||""}));
+EV.forEach(e=>{e.lm=LM.has(e.t);e.cf=!!CONFLICTS[e.t];e.src=sourceOf(e);});
+function sourceOf(e){
+  if(SRC[e.t])return SRC[e.t];
+  const y=e.y,r=e.r,k=e.k;
+  if(r==="cs"||r==="nt"||k==="n")return y>1850?["S","Scientific observation and measurement"]:["S","Reconstructed by astronomy, geology, genetics and paleontology"];
+  if(k==="a")return ["A","Known from archaeology; this people left no writing from the time"];
+  if(k==="m")return ["T","The people's own tradition"];
+  if(y>=1950)return ["N","Recorded at the time by the people involved and by observers worldwide"];
+  if(r==="me"){if(y<-3300)return ["A","Archaeology"];return ["W","Their own records: tablets, inscriptions and chronicles"];}
+  if(r==="af"){if(y<-3250)return ["A","Archaeology"];if(y<=-30)return ["W","Egyptian and Nubian inscriptions and papyri"];if(y<1500)return ["M","Local chronicles and inscriptions, Arabic-writing scholars, and oral history"];return ["M","African oral histories and writings, with European records"];}
+  if(r==="eu"){if(y<-800)return ["M","Archaeology, palace tablets and later Greek tradition"];return ["W","Their own histories and records"];}
+  if(r==="ru"){if(y<-500)return ["A","Archaeology"];if(y<550)return ["X","Known mainly from Greek, Persian and Chinese writers"];if(y<900)return ["M","Their own inscriptions, with Chinese, Arab and Byzantine writers"];return ["W","Their own chronicles and records"];}
+  if(r==="sa"){if(y<-1500)return ["A","Archaeology; the Indus script is undeciphered"];if(y<-300)return ["O","Oral tradition later written down: the Vedas and Buddhist and Jain texts"];return ["W","Their own inscriptions, texts and chronicles"];}
+  if(r==="ea"){if(y<-1250)return ["A","Archaeology"];return ["W","Their own histories and records"];}
+  if(r==="am"){if(y<-600)return ["A","Archaeology"];if(y<1492)return ["A","Mostly archaeology; Maya and Zapotec inscriptions cover some places"];if(y<1800)return ["M","European colonial records, with Indigenous accounts where they survive"];return ["W","Their own records"];}
+  if(r==="oc"){if(y<300)return ["A","Archaeology and oral tradition"];if(y<1500)return ["W","Their own inscriptions and chronicles"];return ["M","Local chronicles and oral histories, with European records"];}
+  return ["W",""];
+}
 const THREADS=(window.THREADS||[]).concat(window.THREADS2||[]).map((t,i)=>{
   const ids=[];t.steps.forEach(st=>{const [ti,yr]=st.split("|");const e=EV.find(e=>e.t===ti&&(!yr||e.y===+yr));if(e&&!ids.includes(e.id))ids.push(e.id);});
   ids.sort((a,b)=>EV[a].y-EV[b].y);return Object.assign({},t,{ids,col:"var(--t"+(i%8)+")"});
@@ -278,12 +348,12 @@ function approx(y){
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 
 // ---------- scale (horizontal) ----------
-const B=(()=>{const b=[-4.6e9,-4e9,-3e9,-2e9,-1e9,-6e8,-4.5e8,-3.5e8,-2.5e8,-2e8,-1e8,-5e7,-1e7,-5e6,-3e6,-2e6,-1e6,-300000,-100000,-50000,-30000,-20000,-15000,-12000,-10000,-8000,-6000,-5000,-4000];
+const B=(()=>{const b=[-1.4e10,-1.3e10,-1e10,-8e9,-6e9,-4.6e9,-4e9,-3e9,-2e9,-1e9,-6e8,-4.5e8,-3.5e8,-2.5e8,-2e8,-1e8,-5e7,-1e7,-5e6,-3e6,-2e6,-1e6,-300000,-100000,-50000,-30000,-20000,-15000,-12000,-10000,-8000,-6000,-5000,-4000];
   for(let y=-3900;y<=1500;y+=100)b.push(y);
   for(let y=1550;y<=1900;y+=50)b.push(y);
   b.push(1925,1950,1975,2000,2027);return b;})();
 function bucketOf(y){let lo=0,hi=B.length-2;while(lo<hi){const m=(lo+hi+1)>>1;if(B[m]<=y)lo=m;else hi=m-1;}return lo;}
-let lefts=[],ws=[],total=0,rowH=34,AXH=24,LW=58,lensX=200,POS={},visCache=[],zcfg=null;
+let BANDS=[],lefts=[],ws=[],total=0,rowH=34,AXH=24,LW=58,lensX=200,POS={},visCache=[],zcfg=null;
 function xOf(y){const i=bucketOf(y);return lefts[i]+(y-B[i])/(B[i+1]-B[i])*ws[i];}
 function yearAtX(px){if(px<=lefts[0])return B[0];for(let i=0;i<ws.length;i++){if(px<lefts[i]+ws[i])return B[i]+(px-lefts[i])/ws[i]*(B[i+1]-B[i]);}return B[B.length-1];}
 function axisLabel(y){const a=-y;
@@ -293,11 +363,11 @@ function axisLabel(y){const a=-y;
   if(y<0)return a+" BCE";if(y===0)return "1 CE";return y<1000?y+" CE":String(y);}
 
 // ---------- state ----------
-let S={regions:REG.map(r=>r.id),on:{hist:true,tech:true,war:true,relig:true,myth:true},lines:true,tip:true,zoom:2};
-try{const s=JSON.parse(localStorage.getItem("pht-v4")||"null");if(s){S=Object.assign(S,s);S.regions=S.regions.filter(id=>RMAP[id]);if(!S.regions.length)S.regions=REG.map(r=>r.id);}}catch(e){}
-function save(){try{localStorage.setItem("pht-v4",JSON.stringify(S))}catch(e){}}
+let S={regions:REG.map(r=>r.id),on:{hist:true,tech:true,war:true,relig:true,myth:true},lines:false,tip:true,zoom:2,lmOnly:false,bands:true};
+try{const s=JSON.parse(localStorage.getItem("pht-v5")||"null");if(s){S=Object.assign(S,s);S.regions=S.regions.filter(id=>RMAP[id]);if(!S.regions.length)S.regions=REG.map(r=>r.id);}}catch(e){}
+function save(){try{localStorage.setItem("pht-v5",JSON.stringify(S))}catch(e){}}
 let selThread=null,stepIdx=0;
-function shown(e){return S.regions.includes(e.r)&&S.on[LAYER[e.k]];}
+function shown(e){return S.regions.includes(e.r)&&S.on[LAYER[e.k]]&&(!S.lmOnly||e.lm);}
 const tlWrap=document.getElementById("tlWrap"),tl=document.getElementById("tl"),cv=document.getElementById("canvas"),lensEl=document.getElementById("lens"),rlBox=document.getElementById("rowLabels");
 const SIDE=window.matchMedia("(min-width:900px), (orientation:landscape) and (max-height:600px)");
 const ZOOMS=[{w:5,gap:2,minPre:8,min:5,band:26},{w:15,gap:3,minPre:22,min:16,band:40},{w:118,gap:6,minPre:70,min:40,band:128,lbl:true}];
@@ -323,19 +393,30 @@ function render(anchorYear){
   last=-999;for(let i=0;i<nb;i++){if(lefts[i]-last<10)continue;last=lefts[i];const y=B[i];const maj=y<=-4000||y%1000===0||y===1500||y===1900;h+='<div class="gl'+(maj?' major':'')+'" style="left:'+lefts[i]+'px;top:'+AXH+'px"></div>';}
   h+='<div class="deep" style="top:'+AXH+'px;height:'+(n*rowH)+'px;width:'+xOf(-300000).toFixed(0)+'px"></div>';
   POS={};
+  const BH=rowH>=90?15:rowH>=56?12:rowH>=40?8:5,maxT=rowH>=110?3:2;BANDS=[];
   regs.forEach((r,ri)=>{
     const top=AXH+ri*rowH;
+    let strip=0;
+    if(S.bands){const ps=PERIODS.filter(p=>p[0]===r.id).slice().sort((a,b)=>a[1]-b[1]),ends=[];
+      ps.forEach(p=>{let t=ends.findIndex(e=>e<=p[1]);if(t<0){if(ends.length>=maxT)t=ends.length-1;else{ends.push(-Infinity);t=ends.length-1;}}ends[t]=Math.max(ends[t],p[2]);
+        const x0=xOf(Math.max(p[1],B[0])),x1=xOf(Math.min(p[2],B[B.length-1]-0.01)),w=Math.max(2,x1-x0);
+        const bi=BANDS.push(p)-1;
+        h+='<button type="button" class="band'+(/trad\./.test(p[3])?' trad':'')+'" data-band="'+bi+'" style="left:'+x0.toFixed(1)+'px;width:'+w.toFixed(1)+'px;top:'+(top+2+t*BH)+'px;height:'+(BH-1)+'px;--c:var(--r-'+r.id+');--lw:'+(LW+4)+'px" aria-label="'+esc(p[3])+'">'+(BH>=8&&w>36?'<span>'+esc(p[3])+'</span>':'')+'</button>';});
+      strip=ends.length*BH+2;}
+    const mTop=top+strip,mH=Math.max(10,rowH-strip-(zcfg.lbl?6:8));
     h+='<div class="row" style="top:'+top+'px;height:'+rowH+'px;--c:var(--r-'+r.id+')"></div>';
     const w=EV.find(e=>e.r===r.id&&e.k==="w");if(w)h+='<div class="pre" style="top:'+top+'px;height:'+rowH+'px;width:'+xOf(w.y).toFixed(0)+'px;--c:var(--r-'+r.id+')"></div>';
     per[r.id].forEach((list,i)=>{if(!list.length)return;list.sort((a,b)=>a.y-b.y);
       const k=list.length,free=Math.max(0,ws[i]-zcfg.gap-k*COL),span=B[i+1]-B[i];
-      list.forEach((e,j)=>{const f=(e.y-B[i])/span,x=lefts[i]+zcfg.gap+f*free+j*COL,y=top+(rowH-MH)/2;
-        POS[e.id]={x:x+zcfg.w/2,y:top+rowH/2,ri};
+      list.forEach((e,j)=>{const f=(e.y-B[i])/span,x=lefts[i]+zcfg.gap+f*free+j*COL;
+        const MH=e.lm||zcfg.lbl?mH:Math.max(8,Math.round(mH*0.72)),y=mTop+(rowH-strip-MH)/2;
+        POS[e.id]={x:x+zcfg.w/2,y:y+MH/2,ri};
         const st='left:'+x.toFixed(1)+'px;top:'+y.toFixed(1)+'px;width:'+zcfg.w+'px;height:'+MH+'px;--c:var(--r-'+e.r+')';
-        const lbl=esc(e.t)+", "+esc(e.d);
-        if(zcfg.lbl){const tall=MH>=52,lines=Math.max(1,Math.floor((MH-(tall?22:8))/14));
-          h+='<button type="button" class="mk lbl '+e.k+(tall?' tall':'')+'" data-id="'+e.id+'" style="'+st+'" aria-label="'+lbl+'">'+(tall?'<small>'+esc(e.d)+'</small>':'')+'<span style="-webkit-line-clamp:'+lines+'">'+(e.k==="h"||e.k==="a"||e.k==="n"?"":ICON[e.k]+" ")+esc(e.t)+'</span></button>';}
-        else h+='<button type="button" class="mk '+e.k+(S.zoom===0?' tiny':'')+'" data-id="'+e.id+'" style="'+st+'" aria-label="'+lbl+'">'+(e.k==="h"||e.k==="a"||e.k==="n"?"":ICON[e.k])+'</button>';});});
+        const lbl=(e.lm?"Landmark: ":"")+esc(e.t)+", "+esc(e.d)+(e.cf?", accounts differ":"");
+        const cls=e.k+(e.lm?' lm':'')+(e.cf?' cf':'');
+        if(zcfg.lbl){const tall=MH>=52,lines=Math.max(1,Math.floor((MH-(tall?22:8))/(e.lm?15:14)));
+          h+='<button type="button" class="mk lbl '+cls+(tall?' tall':'')+'" data-id="'+e.id+'" style="'+st+'" aria-label="'+lbl+'">'+(tall?'<small>'+(e.lm?'★ ':'')+esc(e.d)+(e.cf?' · ⚖':'')+'</small>':'')+'<span style="-webkit-line-clamp:'+lines+'">'+(!tall&&e.lm?'★ ':'')+(e.k==="h"||e.k==="a"||e.k==="n"?"":ICON[e.k]+" ")+esc(e.t)+'</span></button>';}
+        else h+='<button type="button" class="mk '+cls+(S.zoom===0?' tiny':'')+'" data-id="'+e.id+'" style="'+st+'" aria-label="'+lbl+'">'+(e.lm&&S.zoom>0?'★':(e.k==="h"||e.k==="a"||e.k==="n"?"":ICON[e.k]))+'</button>';});});
   });
   h+='<svg id="threads" width="'+total+'" height="'+H+'"></svg>';
   cv.innerHTML=h;
@@ -345,6 +426,7 @@ function render(anchorYear){
   if(anchorYear!==undefined)tl.scrollLeft=Math.max(0,xOf(anchorYear)+zcfg.w/2-lensX);
   zoomBtns();update(true);
 }
+function curStepId(){if(!selThread)return -1;const ids=threadIds();return ids[stepIdx];}
 function drawThreads(){
   const svg=document.getElementById("threads");if(!svg)return;let h="";
   THREADS.forEach(t=>{const isSel=selThread===t.id;if(!isSel&&(selThread||!S.lines))return;
@@ -353,8 +435,11 @@ function drawThreads(){
     for(let i=1;i<pts.length;i++){const p=pts[i],q=pts[i-1];
       if(q.ri===p.ri){const by=p.y-rowH*0.55;d+=" C"+q.x.toFixed(1)+" "+by.toFixed(1)+" "+p.x.toFixed(1)+" "+by.toFixed(1)+" "+p.x.toFixed(1)+" "+p.y.toFixed(1);}
       else{const mx=(q.x+p.x)/2;d+=" C"+mx.toFixed(1)+" "+q.y.toFixed(1)+" "+mx.toFixed(1)+" "+p.y.toFixed(1)+" "+p.x.toFixed(1)+" "+p.y.toFixed(1);}}
-    h+='<path d="'+d+'" style="stroke:'+t.col+'" stroke-width="'+(isSel?3:1.3)+'" opacity="'+(isSel?0.95:0.4)+'"/>';
-    if(isSel)pts.forEach(p=>{h+='<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" style="fill:'+t.col+'"/>';});});
+    h+='<path d="'+d+'" style="stroke:'+t.col+'" stroke-width="'+(isSel?3.2:1.3)+'" opacity="'+(isSel?0.95:0.35)+'"'+(isSel?' stroke-dasharray="1 0"':'')+'/>';
+    if(isSel){for(let i=1;i<pts.length;i++){const p=pts[i],q=pts[i-1];const mx=(q.x+p.x)/2,my=(q.y+p.y)/2,a=Math.atan2(p.y-q.y,p.x-q.x)*180/Math.PI;
+        h+='<path d="M-5,-5 L5,0 L-5,5 Z" transform="translate('+mx.toFixed(1)+' '+my.toFixed(1)+') rotate('+(q.ri===p.ri?0:a).toFixed(0)+')" style="fill:'+t.col+'"/>';}
+      const ids=t.ids.filter(id=>POS[id]);
+      pts.forEach((p,i)=>{const cur=ids[i]===curStepId();h+='<g class="stop'+(cur?' cur':'')+'"><circle cx="'+p.x.toFixed(1)+'" cy="'+(p.y-0).toFixed(1)+'" r="'+(cur?12:10)+'" style="fill:'+t.col+'"/><text x="'+p.x.toFixed(1)+'" y="'+(p.y+4).toFixed(1)+'" text-anchor="middle">'+(i+1)+'</text></g>';});}});
   svg.innerHTML=h;
   const sel=selThread&&THREADS.find(t=>t.id===selThread);
   cv.querySelectorAll("[data-id]").forEach(b=>{b.classList.toggle("dim",!!sel&&!sel.ids.includes(+b.dataset.id));});
@@ -364,7 +449,8 @@ function drawThreads(){
 const pBody=document.getElementById("pBody"),pYear=document.getElementById("pYear"),pSub=document.getElementById("pSub");
 let lastKey="";
 function lensYears(){const c=tl.scrollLeft+lensX-zcfg.w/2,b=zcfg.band/2;return [yearAtX(c-b),yearAtX(c),yearAtX(c+b)];}
-function li(e,showReg,cur){return '<button type="button" class="li'+(e.k==="m"?" m":"")+(cur?" cur":"")+'" data-id="'+e.id+'" style="--c:var(--r-'+e.r+')"><span class="ly">'+esc(e.d.length>18?fmtYear(e.y):e.d)+'</span><span class="lt">'+(e.k==="h"||e.k==="a"?"":ICON[e.k]+" ")+esc(e.t)+(showReg?'<span class="lr">'+esc(RMAP[e.r].name)+'</span>':'')+'</span></button>';}
+function li(e,showReg,cur){return '<button type="button" class="li'+(e.k==="m"?" m":"")+(e.lm?" lm":"")+(cur?" cur":"")+'" data-id="'+e.id+'" style="--c:var(--r-'+e.r+')"><span class="ly">'+esc(e.d.length>18?fmtYear(e.y):e.d)+'</span><span class="lt">'+(e.lm?'<i class="star">★</i> ':'')+(e.k==="h"||e.k==="a"?"":ICON[e.k]+" ")+esc(e.t)+(e.cf?' <i class="cfi" title="Accounts differ">⚖</i>':'')+(showReg?'<span class="lr">'+esc(RMAP[e.r].name)+'</span>':'')+'<span class="sb s'+e.src[0]+'">'+SRC_LABEL[e.src[0]]+'</span></span></button>';}
+const SRC_LABEL=window.SRC_LABEL||{};
 function update(force){
   const [y0,yc,y1]=lensYears(),ay=approx(yc);
   document.getElementById("lensYear").textContent=axisLabel(ay).replace(" yrs ago","");
@@ -377,16 +463,22 @@ function update(force){
   pSub.textContent=near?"Quiet stretch: nearest events":list.length+" event"+(list.length===1?"":"s")+" · "+rn+" region"+(rn===1?"":"s");
   let h="";
   if(S.tip)h+='<div class="tip"><span>Swipe the timeline sideways to travel through time. Whatever sits under the highlight is listed here. Tap anything for its story.</span><button type="button" id="tipX" aria-label="Dismiss tip">✕</button></div>';
+  const act=PERIODS.filter(p=>S.regions.includes(p[0])&&p[1]<=yc&&p[2]>=yc);
+  if(act.length)h+='<div class="eras"><span class="erl">The world now</span>'+act.map(p=>'<button type="button" class="era" data-band="'+BANDS.indexOf(p)+'" style="--c:var(--r-'+p[0]+')">'+esc(p[3])+'</button>').join("")+'</div>';
   REG.forEach(r=>{const g=list.filter(e=>e.r===r.id);if(!g.length)return;h+='<div class="grp" style="--c:var(--r-'+r.id+')">'+esc(r.name)+'</div><div class="list">'+g.map(e=>li(e,false)).join("")+'</div>';});
   pBody.innerHTML=h;
 }
+function gap(a,b){const d=Math.round(b-a);if(d<=0)return 'the same time';if(d>=1e9)return (d/1e9).toPrecision(2)+' billion years';if(d>=1e6)return (d/1e6).toPrecision(3)+' million years';if(d>=10000)return Math.round(d/1000)+',000 years';return d.toLocaleString('en-US')+' year'+(d===1?'':'s');}
 function threadIds(){const t=THREADS.find(t=>t.id===selThread);return t.ids.filter(id=>visCache.some(e=>e.id===id));}
 function renderThreadPanel(){
   const t=THREADS.find(t=>t.id===selThread),ids=threadIds();
   pYear.textContent="⇄ "+t.name;pSub.textContent=(stepIdx+1)+" of "+ids.length;
-  let h='<div class="tbar"><button type="button" id="tPrev">‹ Back</button><button type="button" id="tNext">Next ›</button><button type="button" id="tEnd">Close</button></div><p class="note" style="--c:'+t.col+';margin:2px 0 8px">'+esc(t.desc)+'</p><div class="list">';
-  ids.forEach((id,i)=>{h+=li(EV[id],true,i===stepIdx);});
-  pBody.innerHTML=h+'</div>';
+  const e=EV[ids[stepIdx]],nx=EV[ids[stepIdx+1]];
+  let h='<div class="tbar"><button type="button" id="tPrev"'+(stepIdx===0?' disabled':'')+'>‹ Back</button><button type="button" id="tNext"'+(!nx?' disabled':'')+'>Next ›</button><button type="button" id="tEnd">Close</button></div>';
+  h+='<div class="stepcard" style="--tc:'+t.col+';--c:var(--r-'+e.r+')"><div class="sn">Stop '+(stepIdx+1)+' of '+ids.length+' · '+esc(RMAP[e.r].name)+' · '+esc(e.d)+'</div><button type="button" class="st" data-id="'+e.id+'">'+esc(e.t)+'</button><p>'+esc(e.x)+'</p>'+(nx?'<div class="nx">Next: <b>'+esc(nx.t)+'</b> in '+esc(RMAP[nx.r].name)+', '+gap(e.y,nx.y)+' later</div>':'<div class="nx">End of this thread.</div>')+'</div>';
+  h+='<p class="note" style="--c:'+t.col+';margin:6px 0 8px">'+esc(t.desc)+'</p><div class="list">';
+  ids.forEach((id,i)=>{h+=li(EV[id],true,i===stepIdx).replace('class="li','data-n="'+(i+1)+'" class="li num');});
+  pBody.innerHTML=h+'</div>';drawThreads();
   const cur=pBody.querySelector(".li.cur");if(cur&&cur.scrollIntoView)cur.scrollIntoView({block:"nearest"});
 }
 let raf=0;tl.addEventListener("scroll",()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;update(false);});},{passive:true});
@@ -394,9 +486,10 @@ tl.addEventListener("wheel",ev=>{if(Math.abs(ev.deltaY)>Math.abs(ev.deltaX)){tl.
 pBody.addEventListener("click",ev=>{
   if(ev.target.closest("#tipX")){S.tip=false;save();update(true);return;}
   if(ev.target.closest("#tPrev")){step(-1);return;}if(ev.target.closest("#tNext")){step(1);return;}if(ev.target.closest("#tEnd")){selectThread(null);return;}
-  const b=ev.target.closest("[data-id]");if(b)showEvent(+b.dataset.id);
+  const b=ev.target.closest("[data-id]");if(b){showEvent(+b.dataset.id);return;}
+  const bd=ev.target.closest("[data-band]");if(bd&&+bd.dataset.band>=0)showPeriod(+bd.dataset.band);
 });
-cv.addEventListener("click",ev=>{const b=ev.target.closest("[data-id]");if(b)showEvent(+b.dataset.id);});
+cv.addEventListener("click",ev=>{const b=ev.target.closest("[data-id]");if(b){showEvent(+b.dataset.id);return;}const bd=ev.target.closest("[data-band]");if(bd)showPeriod(+bd.dataset.band);});
 rlBox.addEventListener("click",ev=>{const r=ev.target.closest("[data-reg]");if(r)showRegion(r.dataset.reg);});
 function currentYear(){return yearAtX(tl.scrollLeft+lensX-zcfg.w/2);}
 function goTo(y,smooth){const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;tl.scrollTo({left:Math.max(0,xOf(y)+zcfg.w/2-lensX),behavior:smooth&&!reduce?"smooth":"auto"});}
@@ -428,6 +521,7 @@ sheet.addEventListener("click",ev=>{
   const lay=ev.target.closest("[data-layer]");if(lay){const k=lay.dataset.layer;if(S.on[k]&&Object.values(S.on).filter(Boolean).length===1)return;S.on[k]=!S.on[k];afterFilter();lay.setAttribute("aria-pressed",S.on[k]);return;}
   const rg=ev.target.closest("[data-rtoggle]");if(rg){const id=rg.dataset.rtoggle;if(S.regions.includes(id)){if(S.regions.length===1)return;S.regions=S.regions.filter(x=>x!==id);}else S.regions=REG.map(r=>r.id).filter(x=>x===id||S.regions.includes(x));afterFilter();rg.setAttribute("aria-pressed",S.regions.includes(id));return;}
   const pr=ev.target.closest("[data-preset]");if(pr){const p=pr.dataset.preset;S.regions=p==="all"?REG.map(r=>r.id):p.split(",");afterFilter();openFilters();return;}
+  const fl=ev.target.closest("[data-flag]");if(fl){const k=fl.dataset.flag;S[k]=!S[k];afterFilter();fl.setAttribute("aria-pressed",S[k]);return;}
   const ln=ev.target.closest("[data-lines]");if(ln){S.lines=!S.lines;afterFilter();ln.setAttribute("aria-pressed",S.lines);return;}
 });
 function afterFilter(){save();const y=currentYear();render(y);}
@@ -458,41 +552,57 @@ function showEvent(id){
   const near=visCache.filter(o=>o.r!==e.r&&Math.abs(o.y-e.y)<=span).sort((a,b)=>Math.abs(a.y-e.y)-Math.abs(b.y-e.y)).slice(0,10).sort((a,b)=>a.y-b.y);
   let h=head(esc(e.t));
   h+='<div class="tags" style="--c:var(--r-'+e.r+')"><span class="tag">'+esc(r.name)+'</span><span class="tag k">'+KIND[e.k]+'</span></div>';
-  h+='<div class="date" style="--c:var(--r-'+e.r+')">'+esc(e.d)+'</div>';
+  h+='<div class="date" style="--c:var(--r-'+e.r+')">'+(e.lm?'★ Landmark · ':'')+esc(e.d)+'</div>';
+  h+='<div class="whose s'+e.src[0]+'"><b>Whose account: '+SRC_LABEL[e.src[0]]+'.</b> '+esc(e.src[1])+(e.src[0]==="X"?' No account by the people themselves survives.':'')+'</div>';
   const mo=MORE[e.t];
   if(mo&&mo.story)h+=mo.story.map(p=>'<p>'+p+'</p>').join("");
   else{if(e.x)h+='<p>'+esc(e.x)+'</p>';if(STORY[e.t])h+=STORY[e.t].map(p=>'<p>'+esc(p)+'</p>').join("");}
   if(e.k==="m")h+='<p class="note" style="--c:var(--r-'+e.r+')">Placed at the date the tradition itself gives, or where its story is set. This is a cultural date, not a historical finding.</p>';
   if(e.k==="a")h+='<p class="note" style="--c:var(--r-'+e.r+')">Known from archaeology, before this region left written records.</p>';
+  if(CONFLICTS[e.t])h+='<h3>⚖ Accounts differ</h3><div class="views">'+CONFLICTS[e.t].map(v=>'<div class="view"><b>'+esc(v[0])+'</b><span>'+esc(v[1])+'</span></div>').join("")+'</div>';
   const ths=EV_THREADS[id]||[];
   if(ths.length)h+='<h3>Threads through this moment</h3><div class="tchips">'+ths.map(t=>'<button type="button" class="tchip" data-thread="'+t.id+'" data-start="'+id+'" style="--tc:'+t.col+'">⇄ '+esc(t.name)+'</button>').join("")+'</div>';
-  const links=(mo&&mo.links)?mo.links.slice():[];
-  const term=e.w||e.t;if(!links.length||e.w)links.push(["Wikipedia: "+term,"https://en.wikipedia.org/w/index.php?title=Special:Search&go=Go&search="+encodeURIComponent(term)]);
-  h+='<h3>'+(e.k==="m"?"Read the stories":"Read more")+'</h3><div class="links">'+links.map(l=>'<a href="'+esc(l[1])+'" target="_blank" rel="noopener">'+esc(l[0])+' ↗</a>').join("")+'</div>';
+  const prim=(PRIMARY[e.t]||[]).concat(mo&&mo.links?mo.links.filter(l=>!/wikipedia/.test(l[1])):[]);
+  const term=e.w||e.t,q=encodeURIComponent(term);
+  const refs=[["Encyclopaedia Britannica","https://www.britannica.com/search?query="+q]];
+  if(e.y>-5000&&e.y<1800&&e.r!=="cs"&&e.r!=="nt")refs.push(["World History Encyclopedia","https://www.worldhistory.org/search/?q="+q]);
+  refs.push(["Wikipedia: "+term,"https://en.wikipedia.org/w/index.php?title=Special:Search&go=Go&search="+q]);
+  if(mo&&mo.links)mo.links.filter(l=>/wikipedia/.test(l[1])).forEach(l=>refs.push(l));
+  const A=l=>'<a href="'+esc(l[1])+'" target="_blank" rel="noopener">'+esc(l[0])+' ↗</a>';
+  if(prim.length)h+='<h3>'+(e.k==="m"?"Read the original texts":"Primary sources & museums")+'</h3><div class="links">'+prim.map(A).join("")+'</div>';
+  h+='<h3>Reference</h3><div class="links ref">'+refs.map(A).join("")+'</div>';
   const cs=calendars(e.y);
   if(cs.length)h+='<h3>This year in other calendars</h3><div class="cal">'+cs.map(c=>'<div><span>'+c[0]+'</span><b>'+c[1]+'</b></div>').join("")+'</div>';
   h+='<h3>Meanwhile, elsewhere</h3>'+(near.length?'<div class="list">'+near.map(o=>li(o,true)).join("")+'</div>':'<p class="note" style="--c:var(--line)">Nothing in the other shown regions close to this date.</p>');
   h+='<div class="row2"><button type="button" data-goto="'+e.y+'">Show on timeline</button></div>';
   openSheet(h);
 }
+function showPeriod(i){const p=BANDS[i];if(!p)return;const r=RMAP[p[0]];
+  const evs=EV.filter(e=>e.r===p[0]&&e.y>=p[1]&&e.y<=p[2]).sort((a,b)=>a.y-b.y);
+  let h=head(esc(p[3]))+'<div class="tags" style="--c:var(--r-'+p[0]+')"><span class="tag">'+esc(r.name)+'</span></div><div class="date" style="--c:var(--r-'+p[0]+')">'+esc(fmtYear(p[1]))+' to '+(p[2]>=2026?'today':esc(fmtYear(p[2])))+' · '+gap(p[1],p[2])+'</div>'+(p[4]?'<p>'+esc(p[4])+'</p>':'');
+  h+='<h3>On the timeline in this period</h3>'+(evs.length?'<div class="list">'+evs.slice(0,60).map(e=>li(e,false)).join("")+'</div>':'<p class="note" style="--c:var(--line)">No entries yet.</p>');
+  h+='<h3>Reference</h3><div class="links ref"><a href="https://www.britannica.com/search?query='+encodeURIComponent(p[3])+'" target="_blank" rel="noopener">Encyclopaedia Britannica ↗</a><a href="https://en.wikipedia.org/w/index.php?title=Special:Search&go=Go&search='+encodeURIComponent(p[3].replace(/ \(.*\)/,""))+'" target="_blank" rel="noopener">Wikipedia ↗</a></div>';
+  h+='<div class="row2"><button type="button" data-goto="'+Math.max(p[1],-1.38e10)+'">Go to its start</button></div>';
+  openSheet(h);}
 function showRegion(id){const r=RMAP[id];const n=EV.filter(e=>e.r===id).length;
   openSheet(head(esc(r.name))+'<p>'+esc(r.sub)+'. '+n+' entries.</p><div class="row2"><button type="button" data-preset="'+id+'">Show only this region</button><button type="button" data-preset="all">Show all regions</button></div>');}
 
 function openFilters(){
   let h=head("Filters");
-  h+='<h3>Layers</h3><div class="toggles">'+LAYERS.map(([k,l,i])=>'<button type="button" class="tg" data-layer="'+k+'" aria-pressed="'+S.on[k]+'" style="--c:var(--accent)"><span class="bx">✓</span>'+(i?i+" ":"")+l+'</button>').join("")+'<button type="button" class="tg" data-lines="1" aria-pressed="'+S.lines+'" style="--c:var(--accent)"><span class="bx">✓</span>⇄ Thread lines</button></div>';
+  h+='<h3>Layers</h3><div class="toggles">'+LAYERS.map(([k,l,i])=>'<button type="button" class="tg" data-layer="'+k+'" aria-pressed="'+S.on[k]+'" style="--c:var(--accent)"><span class="bx">✓</span>'+(i?i+" ":"")+l+'</button>').join("")+'<button type="button" class="tg" data-lines="1" aria-pressed="'+S.lines+'" style="--c:var(--accent)"><span class="bx">✓</span>⇄ All thread lines</button><button type="button" class="tg" data-flag="bands" aria-pressed="'+S.bands+'" style="--c:var(--accent)"><span class="bx">✓</span>▭ Periods & dynasties</button><button type="button" class="tg" data-flag="lmOnly" aria-pressed="'+S.lmOnly+'" style="--c:var(--gold)"><span class="bx">✓</span>★ Landmarks only</button></div>';
   h+='<h3>Regions</h3><div class="toggles">'+REG.map(r=>'<button type="button" class="tg" data-rtoggle="'+r.id+'" aria-pressed="'+S.regions.includes(r.id)+'" style="--c:var(--r-'+r.id+')"><span class="bx">✓</span>'+esc(r.name)+'</button>').join("")+'</div>';
   h+='<p class="note" style="--c:var(--accent)">Fewer regions make each row taller, so names on the timeline get two lines.</p>';
-  h+='<div class="row2"><button type="button" data-preset="all">All regions</button><button type="button" data-preset="me,eu,ea">Middle East · Europe · East Asia</button><button type="button" data-preset="af,am,eu">Africa · Americas · Europe</button><button type="button" data-preset="nt,me,sa">Earth · Middle East · South Asia</button></div>';
+  h+='<div class="row2"><button type="button" data-preset="all">All regions</button><button type="button" data-preset="me,eu,ea">Middle East · Europe · East Asia</button><button type="button" data-preset="af,am,eu">Africa · Americas · Europe</button><button type="button" data-preset="nt,me,sa">Earth · Middle East · South Asia</button><button type="button" data-preset="cs,nt">Cosmos · Earth</button></div>';
   openSheet(h);
 }
 function openThreads(){
-  let h=head("Threads")+'<p>Threads follow one story as it crosses regions: trade, faiths, conquests, inventions, disease, climate and shared myths. Pick one to light it up and step through it.</p>';
+  let h=head("Threads")+'<p>A thread follows one story as it moves from one civilization to another. Pick one: its stops are numbered on the timeline, everything else fades, and the panel walks you through it stop by stop.</p>';
   if(selThread)h+='<div class="row2"><button type="button" data-thread="">Close current thread</button></div>';
-  h+='<div class="thl">'+THREADS.map(t=>'<button type="button" data-thread="'+t.id+'" style="--tc:'+t.col+'"><span class="sw"></span><span><b>'+esc(t.name)+'</b><span>'+esc(t.desc)+' '+t.ids.length+' steps.</span></span></button>').join("")+'</div>';
+  h+='<div class="thl">'+THREADS.map(t=>{const route=[];t.ids.forEach(id=>{const r=EV[id].r;if(route[route.length-1]!==r)route.push(r);});
+    return '<button type="button" data-thread="'+t.id+'" style="--tc:'+t.col+'"><span class="sw"></span><span><b>'+esc(t.name)+'</b><span>'+esc(t.desc)+'</span><span class="route">'+route.map(r=>'<i style="--c:var(--r-'+r+')">'+esc(RMAP[r].short)+'</i>').join('<em>→</em>')+'</span><span class="cnt">'+t.ids.length+' stops · '+fmtYear(EV[t.ids[0]].y)+' to '+fmtYear(EV[t.ids[t.ids.length-1]].y)+'</span></span></button>';}).join("")+'</div>';
   openSheet(h);
 }
-const JUMPS=[[-4.54e9,"Earth forms","4.5 billion years ago"],[-251.9e6,"The Great Dying","252 million years ago"],[-66e6,"Dinosaurs die out","66 million years ago"],[-2.8e6,"First humans","2.8 million years ago"],[-300000,"Our species","300,000 BCE"],[-24000,"Ice Age peak","c. 24,000 BCE"],[-9500,"First farms & temples","c. 9500 BCE"],[-3300,"Writing begins","3300 BCE"],[-2200,"Pyramids & drought","c. 2200 BCE"],[-1200,"Bronze Age collapse","c. 1200 BCE"],[-500,"Axial Age","c. 500 BCE"],[1,"Turn of the eras","1 CE"],[750,"Caliphs & Tang","c. 750 CE"],[1250,"Mongol world","c. 1250"],[1500,"Age of contact","1500"],[1800,"Revolutions","1800"],[1945,"World wars end","1945"],[2026,"Today","2026"]];
+const JUMPS=[[-13.8e9,"The Big Bang","13.8 billion years ago"],[-4.6e9,"The Sun & Earth form","4.6 billion years ago"],[-251.9e6,"The Great Dying","252 million years ago"],[-66e6,"Dinosaurs die out","66 million years ago"],[-2.8e6,"First humans","2.8 million years ago"],[-300000,"Our species","300,000 BCE"],[-24000,"Ice Age peak","c. 24,000 BCE"],[-9500,"First farms & temples","c. 9500 BCE"],[-3300,"Writing begins","3300 BCE"],[-2200,"Pyramids & drought","c. 2200 BCE"],[-1200,"Bronze Age collapse","c. 1200 BCE"],[-500,"Axial Age","c. 500 BCE"],[1,"Turn of the eras","1 CE"],[750,"Caliphs & Tang","c. 750 CE"],[1250,"Mongol world","c. 1250"],[1500,"Age of contact","1500"],[1800,"Revolutions","1800"],[1945,"World wars end","1945"],[2026,"Today","2026"]];
 function openEras(){openSheet(head("Jump to an era")+'<div class="jumps">'+JUMPS.map(j=>'<button type="button" data-goto="'+j[0]+'"><b>'+j[1]+'</b><span>'+j[2]+'</span></button>').join("")+'</div>');}
 function openFaiths(){
   const S0=-3500,E=2026,Wd=E-S0,pc=y=>((Math.max(S0,Math.min(E,y))-S0)/Wd*100);
@@ -510,6 +620,9 @@ function openGuide(){
   h+='<p><b>Zoom.</b> Use − and + next to the year. Zoomed in, names appear right on the timeline; zoomed out, you see thousands of years and every thread at once.</p>';
   h+='<div class="legend"><div><span class="mk h" style="--c:var(--r-eu)"></span>Recorded history</div><div><span class="mk t" style="--c:var(--r-eu)">⚙\uFE0E</span>Technology & science</div><div><span class="mk x" style="--c:var(--r-eu)">⚔\uFE0E</span>War & conflict</div><div><span class="mk r" style="--c:var(--r-eu)">◎</span>Religion</div><div><span class="mk m" style="--c:var(--r-eu)">✦</span>Myth, legend & tradition (dashed)</div><div><span class="mk w" style="--c:var(--r-eu)">✎</span>First writing in a region</div></div>';
   h+='<p><b>Hatching</b> at the start of a row is that region\'s time before writing, known only from archaeology. Faint stripes at the far left are deep time, before our species.</p>';
+  h+='<p><b>Periods.</b> The colored bars at the top of each row are that civilization\'s own ages, dynasties and states, using their own names where they have one. Tap one to see what happened in it.</p>';
+  h+='<p><b>★ Landmarks</b> are turning points, drawn larger. <b>⚖</b> marks events that different peoples remember differently; the card shows each side\'s account.</p>';
+  h+='<p><b>Whose account?</b> Every card says what its knowledge rests on: the people\'s own writing, their own oral tradition, archaeology, or outsiders. Where only outsiders wrote about a people, as with the Scythians or Carthage, the card says so and names them.</p>';
   h+='<p><b>Threads</b> are the colored lines linking rows: the Silk Road, the spread of faiths, conquests, inventions, plagues, volcanoes and shared myths. Open Threads to light one up and step through it.</p>';
   h+='<p><b>Scale.</b> Time stretches where history is crowded, so 4.5 billion years fit at the start while recent centuries get more room.</p>';
   h+='<p><b>Dates.</b> Ancient dates are approximate. Myths sit at the date their own tradition gives, as cultural history rather than claims about what happened.</p>';
