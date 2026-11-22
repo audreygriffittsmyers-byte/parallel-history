@@ -231,6 +231,7 @@ main{flex-direction:row}
   .ph .yr{font-size:17px;white-space:normal;line-height:1.15}
 }
 @media (prefers-reduced-motion: reduce){ .sheet,.backdrop,.mk{transition:none} }
+.why{margin:.55em 0;padding:.55em .75em;border-left:4px solid var(--tc,var(--accent));background:color-mix(in srgb,var(--tc,var(--accent)) 14%,transparent);border-radius:8px;font-size:.95em;line-height:1.45}.why b{display:block;margin-bottom:.15em}
 </style>
 </head>
 <body>
@@ -284,6 +285,12 @@ main{flex-direction:row}
 <script src="data/themes.js"></script>
 <script src="data/themes2.js"></script>
 <script src="data/cosmos2.js"></script>
+<script src="data/why.js"></script>
+<script src="data/why2.js"></script>
+<script src="data/why3.js"></script>
+<script src="data/why4.js"></script>
+<script src="data/why5.js"></script>
+<script src="data/why6.js"></script>
 <script>
 const REG=[
  {id:"cs",name:"Cosmos",short:"Cosmos",sub:"Universe, galaxy, Sun"},
@@ -492,12 +499,16 @@ function update(force){
 }
 function gap(a,b){const d=Math.round(b-a);if(d<=0)return 'the same time';if(d>=1e9)return (d/1e9).toPrecision(2)+' billion years';if(d>=1e6)return (d/1e6).toPrecision(3)+' million years';if(d>=10000)return Math.round(d/1000)+',000 years';return d.toLocaleString('en-US')+' year'+(d===1?'':'s');}
 function threadIds(){const t=THREADS.find(t=>t.id===selThread);return t.ids.filter(id=>visCache.some(e=>e.id===id));}
+const WHY=window.WHY||{};
+const WHY_DEF=window.WHY_DEFAULT||{};
+function whyText(tid,e){return (WHY[tid]||{})[e.t]||WHY_DEF[tid]||'';}
+function whyBox(tid,e){const w=whyText(tid,e);return w?'<div class="why"><b>Why it\'s on this line:</b> '+esc(w)+'</div>':'';}
 function renderThreadPanel(){
   const t=THREADS.find(t=>t.id===selThread),ids=threadIds();
   pYear.textContent="⇄ "+t.name;pSub.textContent=(stepIdx+1)+" of "+ids.length;
   const e=EV[ids[stepIdx]],nx=EV[ids[stepIdx+1]];
   let h='<div class="tbar"><button type="button" id="tPrev"'+(stepIdx===0?' disabled':'')+'>‹ Back</button><button type="button" id="tNext"'+(!nx?' disabled':'')+'>Next ›</button><button type="button" id="tEnd">Close</button></div>';
-  h+='<div class="stepcard" style="--tc:'+t.col+';--c:var(--r-'+e.r+')"><div class="sn">Stop '+(stepIdx+1)+' of '+ids.length+' · '+esc(RMAP[e.r].name)+' · '+esc(e.d)+'</div><button type="button" class="st" data-id="'+e.id+'">'+esc(e.t)+'</button><p>'+esc(e.x)+'</p>'+(nx?'<div class="nx">Next: <b>'+esc(nx.t)+'</b> in '+esc(RMAP[nx.r].name)+', '+gap(e.y,nx.y)+' later</div>':'<div class="nx">End of this thread.</div>')+'</div>';
+  h+='<div class="stepcard" style="--tc:'+t.col+';--c:var(--r-'+e.r+')"><div class="sn">Stop '+(stepIdx+1)+' of '+ids.length+' · '+esc(RMAP[e.r].name)+' · '+esc(e.d)+'</div><button type="button" class="st" data-id="'+e.id+'">'+esc(e.t)+'</button>'+whyBox(t.id,e)+'<p>'+esc(e.x)+'</p>'+(nx?'<div class="nx">Next: <b>'+esc(nx.t)+'</b> in '+esc(RMAP[nx.r].name)+', '+gap(e.y,nx.y)+' later</div>':'<div class="nx">End of this thread.</div>')+'</div>';
   h+='<p class="note" style="--c:'+t.col+';margin:6px 0 8px">'+esc(t.desc)+'</p><div class="list">';
   ids.forEach((id,i)=>{h+=li(EV[id],true,i===stepIdx).replace('class="li','data-n="'+(i+1)+'" class="li num');});
   pBody.innerHTML=h+'</div>';drawThreads();
@@ -575,6 +586,7 @@ function showEvent(id){
   let h=head(esc(e.t));
   h+='<div class="tags" style="--c:var(--r-'+e.r+')"><span class="tag">'+esc(r.name)+'</span><span class="tag k">'+KIND[e.k]+'</span></div>';
   h+='<div class="date" style="--c:var(--r-'+e.r+')">'+(e.lm?'★ Landmark · ':'')+esc(e.d)+'</div>';
+  {const t=selThread&&THREADS.find(t=>t.id===selThread);if(t&&t.ids.includes(e.id)){const w=whyText(t.id,e);if(w)h+='<div class="why" style="--tc:'+t.col+'"><b>⇄ '+esc(t.name)+': why it\'s on this line.</b> '+esc(w)+'</div>';}}
   h+='<div class="whose s'+e.src[0]+'"><b>Whose account: '+SRC_LABEL[e.src[0]]+'.</b> '+esc(e.src[1])+(e.src[0]==="X"?' No account by the people themselves survives.':'')+'</div>';
   const mo=MORE[e.t];
   if(mo&&mo.story)h+=mo.story.map(p=>'<p>'+p+'</p>').join("");
