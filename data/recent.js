@@ -53,7 +53,7 @@ window.EXTRA5=[
 [2025,"ea","h","Japan's first woman prime minister","Sanae Takaichi takes office.","21 Oct 2025","Sanae Takaichi"],
 [2025,"af","x","El Fasher falls","The RSF takes Darfur's last army-held city after an 18-month siege; a UN inquiry later finds 'hallmarks of genocide'.","26 Oct 2025","Siege of El Fasher"],
 [2025,"am","n","Hurricane Melissa","One of the strongest Atlantic landfalls on record devastates Jamaica.","28 Oct 2025","Hurricane Melissa"],
-[2025,"nt","n","Wind and solar overtake coal","Combined wind and solar generation passes coal as a source of the world's electricity.","2025","Renewable energy"],
+[2025,"nt","n","Renewables overtake coal","Solar, wind, hydro and other renewables generate more of the world's electricity than coal for the first time since 1919.","2025","Renewable energy"],
 
 // ---------- 2026 ----------
 [2026,"am","x","US seizes Maduro","In 'Operation Absolute Resolve' US forces strike Venezuela and capture President Nicolás Maduro, flying him to New York for trial; Delcy Rodríguez becomes interim president.","3 Jan 2026","2026 United States strikes in Venezuela"],
