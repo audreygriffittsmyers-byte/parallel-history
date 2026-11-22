@@ -77,8 +77,6 @@ window.THREADS=[
  steps:["Cold War begins","Soviet atomic bomb","Korean War","Vietnam War","Sputnik","Cuban Revolution","Berlin Wall built","Gagarin in space","Cuban Missile Crisis","Moon landing","Soviet war in Afghanistan","Berlin Wall falls","Soviet Union dissolves"]},
 {id:"decol",name:"Decolonization",desc:"After 1945, most of the colonized world wins independence.",
  steps:["Indonesian independence","Independence & Partition","Sri Lanka & Burma independent","Algerian War","Ghana independent","Malaya independent","Singapore independent"]},
-{id:"space",name:"The Space Age",desc:"From the first satellite to telescopes at the edge of the universe.",
- steps:["Sputnik","Gagarin in space","Moon landing","Voyager & personal computers","Hubble telescope","Chandrayaan-3","James Webb telescope"]},
 {id:"flood",name:"Flood myths",desc:"Cultures far apart tell of a great flood survived by a few people.",
  steps:["The flood of Ziusudra","Noah's Flood (Ussher)","Yu the Great tames the flood","Atrahasis","Deucalion's flood","Manu & the flood","Popol Vuh"]},
 {id:"first",name:"The first humans in myth",desc:"How different peoples imagined the first people.",
