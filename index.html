@@ -358,7 +358,13 @@ function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;","
 const B=(()=>{const b=[-1.4e10,-1.3e10,-1e10,-8e9,-6e9,-4.6e9,-4e9,-3e9,-2e9,-1e9,-6e8,-4.5e8,-3.5e8,-2.5e8,-2e8,-1e8,-5e7,-1e7,-5e6,-3e6,-2e6,-1e6,-300000,-100000,-50000,-30000,-20000,-15000,-12000,-10000,-8000,-6000,-5000,-4000];
   for(let y=-3900;y<=1500;y+=100)b.push(y);
   for(let y=1550;y<=1900;y+=50)b.push(y);
-  b.push(1925,1950,1975,2000,2027);return b;})();
+  b.push(1925,1950,1975,2000,2027);
+  // Split any slot where one row holds more than two events, so cards stay close to their true dates.
+  const split=(lo,hi)=>{const span=hi-lo;if(span<=1)return [lo];const c={};let mx=0;
+    EV.forEach(e=>{if(e.y>=lo&&e.y<hi){c[e.r]=(c[e.r]||0)+1;mx=Math.max(mx,c[e.r]);}});
+    if(mx<=2)return [lo];let mid=lo+span/2;if(lo>-4000)mid=Math.round(mid);if(mid<=lo||mid>=hi)return [lo];
+    return split(lo,mid).concat(split(mid,hi));};
+  const out=[];for(let i=0;i<b.length-1;i++)out.push(...split(b[i],b[i+1]));out.push(b[b.length-1]);return out;})();
 function bucketOf(y){let lo=0,hi=B.length-2;while(lo<hi){const m=(lo+hi+1)>>1;if(B[m]<=y)lo=m;else hi=m-1;}return lo;}
 let BANDS=[],lefts=[],ws=[],total=0,rowH=34,AXH=24,LW=58,lensX=200,POS={},visCache=[],zcfg=null;
 function xOf(y){const i=bucketOf(y);return lefts[i]+(y-B[i])/(B[i+1]-B[i])*ws[i];}
