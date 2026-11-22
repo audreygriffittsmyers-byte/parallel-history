@@ -192,7 +192,7 @@ Object.assign(window.SRC,{
 "Dzungar genocide":["M","Qing records; the Dzungar side survives in Mongol oral history"],
 "Imam Shamil's resistance":["M","Russian records and Dagestani chronicles in Arabic"],
 "Russia takes Tashkent":["M","Russian records and Central Asian chronicles"],
-"Russia annexes Crimea":["M","Russian decrees, and Crimean Tatar memory"],
+"Russia annexes the Crimean Khanate":["M","Russian decrees, and Crimean Tatar memory"],
 "Epic of Manas":["T","Kyrgyz oral epic"],
 // ---------- South Asia ----------
 "Trade with Sumer":["M","Mesopotamian tablets naming 'Meluhha', and Indus seals found in Iraq"],

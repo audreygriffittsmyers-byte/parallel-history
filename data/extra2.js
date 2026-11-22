@@ -199,7 +199,7 @@ window.EXTRA2=[
 [1741,"ru","h","Bering reaches Alaska","","1741","Vitus Bering"],
 [1755,"ru","t","Moscow University","Founded by the polymath Lomonosov.","1755","Moscow State University"],
 [1755,"ru","x","Dzungar genocide","Qing forces destroy the Dzungar Mongols.","1755","Dzungar genocide"],
-[1783,"ru","h","Russia annexes Crimea","","1783","Annexation of the Crimean Khanate by the Russian Empire"],
+[1783,"ru","h","Russia annexes the Crimean Khanate","Catherine the Great absorbs the last successor state of the Golden Horde.","1783","Annexation of the Crimean Khanate by the Russian Empire"],
 [1801,"ru","h","Russia annexes Georgia","","1801","Georgia within the Russian Empire"],
 [1830,"ru","h","Pushkin","Father of modern Russian literature; Eugene Onegin.","c. 1830","Alexander Pushkin"],
 [1834,"ru","x","Imam Shamil's resistance","Decades of war in the Caucasus.","1834","Caucasian War"],
