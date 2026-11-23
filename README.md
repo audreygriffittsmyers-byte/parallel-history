@@ -1,4 +1,4 @@
-# Parallel History
+# A Parallel History of the Universe and Humankind
 
 An interactive timeline of Earth and every civilization, lined up year by year.
 
