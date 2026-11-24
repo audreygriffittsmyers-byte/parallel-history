@@ -102,5 +102,5 @@ window.THREADS2=[
 {id:"warming",name:"Industry & climate change",desc:"From coal-fired steam to a hotter planet.",
  steps:["Steam engine","Industrial Revolution","1 billion people","Keeling Curve","Ozone hole","Paris Agreement","8 billion people","First year above 1.5 °C"]},
 {id:"origins",name:"Human origins",desc:"From our split with the chimpanzees to our species.",
- steps:["Humans & chimps part ways","First stone tools","Lucy","Earliest Homo","Homo erectus leaves Africa","Controlled fire","Neanderthals","Earliest Homo sapiens","Neanderthals disappear"]}
+ steps:["Humans & chimps part ways","First stone tools","Lucy","Earliest Homo","Homo erectus leaves Africa","Homo erectus in China's rainforests","Controlled fire","Neanderthals","Earliest Homo sapiens","Neanderthals disappear"]}
 ];
