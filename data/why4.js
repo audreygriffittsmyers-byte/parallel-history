@@ -126,7 +126,10 @@ addWhy("allfaith",{
 "Ranjit Singh's Sikh Empire":"The Sikh empire of Punjab; Ranjit Singh gilded the Golden Temple.",
 "The Holocaust":"Nazi Germany murdered six million Jews.",
 "Herod the Great":"Rebuilt the Second Temple in Jerusalem.",
-"Kushan Empire":"A crossroads where Buddhism spread to Central Asia and China."
+"Kushan Empire":"A crossroads where Buddhism spread to Central Asia and China.",
+"'Pagan' becomes a label":"How the old religions were renamed by those who replaced them: a Latin word for country people became a word for false belief.",
+"Pope Gregory: convert the temples":"Christianity often absorbed older religions instead of erasing them: temples became churches and feasts became saints' days.",
+"Animism named":"The name, and the mistaken ranking as 'primitive', that outsiders gave to humanity's oldest outlook."
 });
 
 addWhy("allwar",{
