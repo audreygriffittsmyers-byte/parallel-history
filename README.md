@@ -26,3 +26,7 @@ Ancient dates are approximate. Myths are placed at the dates their own tradition
 
 - `index.html`: the page
 - `data/`: the timeline entries, threads and stories, as plain JavaScript arrays you can edit
+
+## Voice tours
+
+Tap **Tours** to have the curator guide you through any line aloud, using your device's built-in voice. Six curated tours are written by the curator; every thread and whole-history track can also be played as a tour. Every event also has a **Listen** button.
